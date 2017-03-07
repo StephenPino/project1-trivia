@@ -1,0 +1,54 @@
+/*Chat Box*/
+
+body{
+	background-color: #557E97;
+}
+#chat-box-outline {
+	margin-top: 30px;
+	background-color: #C1D2DC;
+	width: 100%;
+	height: 250px;
+	overflow: auto;
+	border-radius: 20px
+
+}
+
+#chat-box {
+	overflow: auto;
+}
+
+#chat-box > p {
+	margin-left: 25px;
+	margin-top: 10px;
+}
+
+#chat-form {
+	margin-top: 10px;
+	width: 100%;
+}
+
+#chat-message {
+	width: 80%;
+	background-color: #C1D2DC;
+	color: black;
+}
+
+#send-message {
+	width: 19.3%;
+	background-color: #C1D2DC;
+
+	
+}
+
+#top-center-div {
+	padding-bottom: 30px;
+    border-bottom: 1px solid #C1D2DC;
+}
+
+#movie-to-blanks-div {
+	
+}
+
+::-webkit-scrollbar { 
+    display: none; 
+}
