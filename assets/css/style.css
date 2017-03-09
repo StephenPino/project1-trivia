@@ -1,0 +1,160 @@
+/*Global Elements*/
+body{
+	background-color: #557E97;
+}
+
+h1 {
+	text-align: center;
+	font-family: 'Arya', sans-serif;
+}
+
+h3 {
+	text-align: center;
+	font-family: 'Arya', sans-serif;
+}
+
+p {
+	line-height: 1.3;
+	font-family: 'Fjord One', serif;
+	font-size: 16px;
+}
+
+::-webkit-scrollbar { 
+    display: none; 
+}
+
+/*End Global Elements*/
+
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+
+/*Chat Box*/
+#chat-box-outline {
+	margin-top: 30px;
+	background-color: #C1D2DC;
+	width: 100%;
+	height: 250px;
+	overflow: auto;
+	border-radius: 20px
+
+}
+
+#chat-history {
+	overflow: auto;
+	width:100%;
+	height: 100%;
+}
+
+#chat-history > p {
+	margin-left: 25px;
+	margin-top: 15px;
+	margin-right: 25px;
+}
+
+#chat-form {
+	margin-top: 10px;
+	width: 100%;
+}
+
+#chat-input {
+	width: 80%;
+	background-color: #C1D2DC;
+	color: black;
+}
+
+#chat-submit {
+	width: 19.3%;
+	background-color: #C1D2DC;
+
+}
+
+/*End Chat Box Material*/
+
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+
+#top-center-div {
+	padding-bottom: 30px;
+    border-bottom: 1px solid #C1D2DC;
+}
+
+#movie-to-blanks-div {
+	width: 90%;
+	height: 100px;
+	background-color: white;
+	margin: 0 auto;
+	position: relative;
+	margin-top: 30px;
+	border-radius: 20px
+
+}
+
+#game-status-div {
+	width: 90%;
+	height: 250px;
+	background-color: white;
+	margin: 0 auto;
+	position: relative;
+	margin-top: 30px;
+	border-radius: 20px
+
+}
+
+/*Questioner Chat*/
+
+#questioner-div-header {
+	padding-top: 10px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid black;
+}
+
+#questioner-div {
+	width: 90%;
+	height: 400px;
+	background-color: white;
+	margin: 0 auto;
+	position: relative;
+	margin-top: 30px;
+	border-radius: 20px
+}
+
+#questioner-chat{
+	overflow: auto;
+	height: 320px;
+	height: 82%;
+}
+
+#questioner-chat > p {
+	margin-left: 25px;
+	margin-top: 10px;
+}
+
+/*End Questioner Chat*/
+
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+
+ /* players*/
+.player{
+    height:100px;
+    width:100px;
+    border: 1px solid blue;
+    background-color: blue;
+    margin:2px;
+}
+
+.player-margin24{
+	margin-top: 90px;
+}
+
+.player-margin3{
+	margin-top: 140px;
+}
+
+.player-margin15{
+	margin-top: 20px;
+}
+.playerName:{ 
+	width:75px
+}
+
+.nameInput {
+    width: 75px;
+}
