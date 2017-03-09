@@ -38,12 +38,13 @@ p {
 
 }
 
-#chat-box {
+#chat-history {
 	overflow: auto;
 	width:100%;
+	height: 100%;
 }
 
-#chat-box > p {
+#chat-history > p {
 	margin-left: 25px;
 	margin-top: 15px;
 	margin-right: 25px;
@@ -54,13 +55,13 @@ p {
 	width: 100%;
 }
 
-#chat-message {
+#chat-input {
 	width: 80%;
 	background-color: #C1D2DC;
 	color: black;
 }
 
-#send-message {
+#chat-submit {
 	width: 19.3%;
 	background-color: #C1D2DC;
 
@@ -78,6 +79,17 @@ p {
 #movie-to-blanks-div {
 	width: 90%;
 	height: 100px;
+	background-color: white;
+	margin: 0 auto;
+	position: relative;
+	margin-top: 30px;
+	border-radius: 20px
+
+}
+
+#game-status-div {
+	width: 90%;
+	height: 250px;
 	background-color: white;
 	margin: 0 auto;
 	position: relative;
@@ -107,6 +119,7 @@ p {
 #questioner-chat{
 	overflow: auto;
 	height: 320px;
+	height: 82%;
 }
 
 #questioner-chat > p {
@@ -117,3 +130,31 @@ p {
 /*End Questioner Chat*/
 
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
+
+ /* players*/
+.player{
+    height:100px;
+    width:100px;
+    border: 1px solid blue;
+    background-color: blue;
+    margin:2px;
+}
+
+.player-margin24{
+	margin-top: 90px;
+}
+
+.player-margin3{
+	margin-top: 140px;
+}
+
+.player-margin15{
+	margin-top: 20px;
+}
+.playerName:{ 
+	width:75px
+}
+
+.nameInput {
+    width: 75px;
+}

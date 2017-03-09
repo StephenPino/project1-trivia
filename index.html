@@ -19,6 +19,9 @@
 <!-- style.css -->
 <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+
 </head>
 
 <body>
@@ -44,6 +47,15 @@
 
 			</div>
 
+			<div id="game-status-div">
+
+				<h1 id="game-status-header">Game Status</h1>
+				<h3 id="game-text-1"></h3>
+				<h3 id="game-text-2"></h3>
+				<button type="button" id="player-ready" class="btn btn-default center-block">button</button>
+				
+			</div>
+
 		</div>
 
 		<!-- Middle Section -->
@@ -56,17 +68,14 @@
 
 					<div id="chat-box-outline">
 
-						<div id="chat-box">
-
-							<p> Player_One: This is a text message This is a text message This is a text message This is a text message This is a text message This is a text message </p>
-
+						<div id="chat-history">
 						</div>
 
 					</div>
 
 						<form class="form-inline" id="chat-form">
-						<input type="text" class="form-control" id="chat-message" placeholder="Enter message here">
-						<button id="send-message" class="btn btn-default">Send</button>
+						<input type="text" class="form-control" id="chat-input" placeholder="Enter message here">
+						<button id="chat-submit" class="btn btn-default">Send</button>
 						</form>
 
 				</div>
@@ -81,24 +90,54 @@
 				</div>
 
 				<!-- User 1 -->
-				<div class="col-md-2">
-				</div>
+				<div class="col-md-2 player player-margin15">
+                    <div id =nameInput>
+                        <form>
+                       		 <input type="text" class="nameInput" id="player1-name-input" name="nameInput" placeholder="Name">
+                        </form>
+                        <button type="button" class="btn btn-sm" id="player1-name-submit">Enter</button>
+                    </div>  
+                </div>
 							
 				<!-- User 2 -->
-				<div class="col-md-2">
-				</div>
+				<div class="col-md-2 player player-margin24">
+                    <div id =nameInput>
+                        <form>
+                            <input type="text" class="nameInput" id="player2-name-input" name="nameInput" placeholder="Name">
+                        </form>
+                        <button type="button" class="btn btn-sm" id="player2-name-submit">Enter</button>
+                    </div>  
+                </div>
 
 				<!-- User 3 -->
-				<div class="col-md-2">
-				</div>
+                <div class="col-md-2 player player-margin3" id="playerName" placeholder="Name">
+                    <div id =nameInput>
+                        <form>
+                            <input type="text" class="nameInput" id="player3-name-input" name="nameInput" placeholder="Name">
+                        </form>
+                        <button type="button" class="btn btn-sm" id="player3-name-submit">Enter</button>
+                    </div>    
+                </div>
 
 				<!-- User 4 -->
-				<div class="col-md-2">
-				</div>
+                <div class="col-md-2 player player-margin24">
+                    <div id =nameInput>
+                        <form>
+                            <input type="text" class="nameInput" id="player4-name-input" name="nameInput" placeholder="Name">
+                        </form>
+                        <button type="button" class="btn btn-sm" id="player4-name-submit">Enter</button>
+                    </div>    
+                </div>
 
-				<!-- User 55 -->
-				<div class="col-md-2">
-				</div>
+				<!-- User 5 -->
+                <div class="col-md-2 player player-margin15">
+                    <div id =nameInput>
+                        <form>
+                            <input type="text" class="nameInput" id="player5-name-input" name="nameInput" placeholder="Name">
+                        </form>
+                        <button type="button" class="btn btn-sm" id="player5-name-submit">Enter</button>
+                    </div> 
+                </div>
 
 				<!-- Empty space -->
 				<div class="col-md-1">
@@ -142,4 +181,10 @@
 </div>
 
 </body>
+
+<script type="text/javascript" src="assets/javascript/globalvars.js"></script>
+<script type="text/javascript" src="assets/javascript/seat.js"></script>
+<script type="text/javascript" src="assets/javascript/game.js"></script>
+<script type="text/javascript" src="assets/javascript/main.js"></script>
+
 </html>
