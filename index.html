@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Trivia Game</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+
+
+   <script
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+</head>
+<body>
+
+  <div id="player1" class="float-left">
+    <label for="player1-name">Player 1</label>
+    <p id="player1-name">None</p>
+    <form id="player1-name-form">
+      <input id="player1-name-input" type="text">
+      <button id="player1-name-submit">Send</button>
+    </form>
+  </div>
+
+  <div id="player2" class="float-left">
+    <label for="player2-name">Player 2</label>
+    <p id="player2-name">None</p>
+    <form id="player2-name-form">
+      <input id="player2-name-input" type="text">
+      <button id="player2-name-submit">Send</button>
+    </form>
+  </div>
+
+  <div id="player3" class="float-left">
+    <label for="player3">Player 3</label>
+    <p id="player3-name">None</p>
+    <form id="player3-name-form">
+      <input id="player3-name-input" type="text">
+      <button id="player3-name-submit">Send</button>
+    </form>
+  </div>
+
+  <div id="player4" class="float-left">
+    <label for="player4-name">Player 4</label>
+    <p id="player4-name">None</p>
+    <form id="player4-name-form">
+      <input id="player4-name-input" type="text">
+      <button id="player4-name-submit">Send</button>
+    </form>
+  </div>
+
+  <div id="player5" class="float-left">
+    <label for="player5-name">Player 5</label>
+    <p id="player5-name">None</p>
+    <form id="player5-name-form">
+      <input id="player5-name-input" type="text">
+      <button id="player5-name-submit">Send</button>
+    </form>
+  </div>
+
+  <br><br>
+
+  <div id="game-text" class="clearfix">
+    <h3>Game Text</h3>
+    <button id="player-ready">Ready?</button>
+    <h3 id="game-text-1">None</h3>
+    <h3 id="game-text-2">None</h3>
+  </div>
+
+  <br><br>
+  <div id="chat" class="clearfix">
+    <label for="chat-history">Chat History</label>
+    <div id="chat-history"></div>
+    <form id="chat-form">
+      <input id="chat-input" type="text">
+      <button id="chat-submit">Send</button>
+    </form>
+  </div>
+
+  <div id="chat-questioner" class="clearfix">
+    <label for="chat-history-questioner">Questioner History</label>
+    <div id="chat-history-questioner"></div>
+  </div>
+  
+</body>
+
+  <script src="./assets/javascript/globalvars.js"></script>  
+  <script src="./assets/javascript/seat.js"></script>
+  <script src="./assets/javascript/game.js"></script>
+  <script src="./assets/javascript/main.js"></script>
+
+</html>
