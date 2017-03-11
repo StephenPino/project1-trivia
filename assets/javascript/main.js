@@ -31,7 +31,7 @@ $(document).ready(function(){
 
   $("#chat-submit").on("click", function(event){
     event.preventDefault();
-    main_game.sendChatMessage($("#chat-input").val().trim());
+    main_game.fbSendChatMessage($("#chat-input").val().trim());
     $("#chat-input").val("");
   });
 
@@ -43,31 +43,31 @@ $(document).ready(function(){
 
   database.ref("player/1").on("value", function(snapshot){
       if(snapshot.exists())
-        main_game.updateSeatValues(snapshot.key, snapshot.val());
+        main_game.fbUpdateSeat(snapshot.key, snapshot.val());
     }, function(errorObject){
       console.log("Errors handled: " + errObject.code);
   });
   database.ref("player/2").on("value", function(snapshot){
       if(snapshot.exists())
-        main_game.updateSeatValues(snapshot.key, snapshot.val());
+        main_game.fbUpdateSeat(snapshot.key, snapshot.val());
     }, function(errorObject){
       console.log("Errors handled: " + errObject.code);
   });
   database.ref("player/3").on("value", function(snapshot){
       if(snapshot.exists())
-        main_game.updateSeatValues(snapshot.key, snapshot.val());
+        main_game.fbUpdateSeat(snapshot.key, snapshot.val());
     }, function(errorObject){
       console.log("Errors handled: " + errObject.code);
   });
   database.ref("player/4").on("value", function(snapshot){
       if(snapshot.exists())
-        main_game.updateSeatValues(snapshot.key, snapshot.val());
+        main_game.fbUpdateSeat(snapshot.key, snapshot.val());
     }, function(errorObject){
       console.log("Errors handled: " + errObject.code);
   });
   database.ref("player/5").on("value", function(snapshot){
       if(snapshot.exists())
-        main_game.updateSeatValues(snapshot.key, snapshot.val());
+        main_game.fbUpdateSeat(snapshot.key, snapshot.val());
     }, function(errorObject){
       console.log("Errors handled: " + errObject.code);
   });
@@ -78,8 +78,21 @@ $(document).ready(function(){
       console.log("Errors handled: " + errObject.code);
   });
 
+  database.ref("q-chat").on("child_added", function(snapshot){
+      main_game.jqDisplayHinterChat(snapshot.val().msg);
+    }, function(errorObject){
+      console.log("Errors handled: " + errObject.code);
+  });
+
   database.ref("game").on("value", function(snapshot){
-      main_game.updateGameValues(snapshot.val());
+      main_game.fbUpdateGame(snapshot.val());
+    }, function(errorObject){
+      console.log("Errors handled: " + errObject.code);
+  });
+
+  database.ref("mask").on("value", function(snapshot){
+      if(snapshot.exists())
+        main_game.fbUpdateMask(snapshot.val());
     }, function(errorObject){
       console.log("Errors handled: " + errObject.code);
   });

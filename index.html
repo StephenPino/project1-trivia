@@ -36,7 +36,7 @@
 			<div id="movie-to-blanks-div">
 
 				<h1 id="movie-to-blanks-header">Time Remaining</h1>
-				<h3 id="movie-to-guess">60 seconds</h3>
+				<h3><span id="timer">60</span> seconds</h3>
 				
 			</div>
 
@@ -92,51 +92,51 @@
 				<!-- User 1 -->
 				<div class="col-md-2 player player-margin15">
 
-                    <div id =nameInput>
+                    <div class ="nameInput">
                         <form>
-                       		 <input type="text" class="nameInput" id="player1-name-input" name="nameInput" placeholder="Name">
+                            <input type="text" class="nameInput" id="player1-name-input" placeholder="Name">
+                            <button class="btn btn-sm" id="player1-name-submit">Enter</button>
                         </form>
-                        <button type="button" class="btn btn-sm" id="player1-name-submit">Enter</button>
                     </div>  
                 </div>
 							
 				<!-- User 2 -->
 				<div class="col-md-2 player player-margin24">
-                    <div id =nameInput>
+                    <div class ="nameInput">
                         <form>
                             <input type="text" class="nameInput" id="player2-name-input" name="nameInput" placeholder="Name">
+                            <button class="btn btn-sm" id="player2-name-submit">Enter</button>
                         </form>
-                        <button type="button" class="btn btn-sm" id="player2-name-submit">Enter</button>
                     </div>  
                 </div>
 
 				<!-- User 3 -->
                 <div class="col-md-2 player player-margin3" id="playerName" placeholder="Name">
-                    <div id =nameInput>
+                    <div class ="nameInput">
                         <form>
                             <input type="text" class="nameInput" id="player3-name-input" name="nameInput" placeholder="Name">
+                            <button class="btn btn-sm" id="player3-name-submit">Enter</button>
                         </form>
-                        <button type="button" class="btn btn-sm" id="player3-name-submit">Enter</button>
                     </div>    
                 </div>
 
 				<!-- User 4 -->
                 <div class="col-md-2 player player-margin24">
-                    <div id =nameInput>
+                    <div class ="nameInput">
                         <form>
                             <input type="text" class="nameInput" id="player4-name-input" name="nameInput" placeholder="Name">
+                            <button class="btn btn-sm" id="player4-name-submit">Enter</button>
                         </form>
-                        <button type="button" class="btn btn-sm" id="player4-name-submit">Enter</button>
                     </div>    
                 </div>
 
 				<!-- User 5 -->
                 <div class="col-md-2 player player-margin15">
-                    <div id =nameInput>
+                    <div class ="nameInput">
                         <form>
                             <input type="text" class="nameInput" id="player5-name-input" name="nameInput" placeholder="Name">
+                            <button class="btn btn-sm" id="player5-name-submit">Enter</button>
                         </form>
-                        <button type="button" class="btn btn-sm" id="player5-name-submit">Enter</button>
                     </div> 
                 </div>
 
@@ -155,7 +155,7 @@
 
 				<h1 id="questioner-div-header">Questioner Chat</h1>
 
-				<div id="questioner-chat">
+				<div id="hinter-chat">
 
 					<p>This movie was released in 1999</p>
 					<p>This movie was released in 1999</p>
@@ -183,6 +183,7 @@
 
 </body>
 
+<script type="text/javascript" src="assets/javascript/fuzzyset.js"></script>
 <script type="text/javascript" src="assets/javascript/globalvars.js"></script>
 <script type="text/javascript" src="assets/javascript/seat.js"></script>
 <script type="text/javascript" src="assets/javascript/game.js"></script>
