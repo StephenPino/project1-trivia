@@ -1,9 +1,14 @@
+// Ready / Unready Status
 $("#player-ready").on("click", function() {
-	$("#player-ready").hide();
-	$("#player-unready").show();
-});
 
-$("#player-unready").on("click", function() {
-	$("#player-ready").show();
-	$("#player-unready").hide();
+	if($(this).attr("data-state") === "ready") {
+		$("#player-ready").html("Ready?");
+		$(this).attr("data-state", "unready");
+		// main_game.windowSetReady(true);
+	}
+	else {
+		$("#player-ready").html("Unready?");
+		$(this).attr("data-state", "ready");
+		// main_game.windowSetReady(false);
+	}
 });
