@@ -1,95 +1,190 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Trivia Game</title>
+	<title>Movie Trivia Game</title>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+<!-- JQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css?family=Arya|Fjord+One" rel="stylesheet">
 
 
-   <script
-    src="https://code.jquery.com/jquery-3.1.1.min.js"
-    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-    crossorigin="anonymous"></script>
-  <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+<!-- style.css -->
+<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+
 </head>
+
 <body>
 
-  <div id="player1" class="float-left">
-    <label for="player1-name">Player 1</label>
-    <p id="player1-name">None</p>
-    <form id="player1-name-form">
-      <input id="player1-name-input" type="text">
-      <button id="player1-name-submit">Send</button>
-    </form>
-  </div>
+<div class="container-fluid">
 
-  <div id="player2" class="float-left">
-    <label for="player2-name">Player 2</label>
-    <p id="player2-name">None</p>
-    <form id="player2-name-form">
-      <input id="player2-name-input" type="text">
-      <button id="player2-name-submit">Send</button>
-    </form>
-  </div>
+	<div class="row">
 
-  <div id="player3" class="float-left">
-    <label for="player3">Player 3</label>
-    <p id="player3-name">None</p>
-    <form id="player3-name-form">
-      <input id="player3-name-input" type="text">
-      <button id="player3-name-submit">Send</button>
-    </form>
-  </div>
+		<!-- Left Section -->
+		<div class="col-md-3">
+		
+			<div id="movie-to-blanks-div">
 
-  <div id="player4" class="float-left">
-    <label for="player4-name">Player 4</label>
-    <p id="player4-name">None</p>
-    <form id="player4-name-form">
-      <input id="player4-name-input" type="text">
-      <button id="player4-name-submit">Send</button>
-    </form>
-  </div>
+				<h1 id="movie-to-blanks-header">Time Remaining</h1>
+				<h3 id="movie-to-guess">60 seconds</h3>
+				
+			</div>
 
-  <div id="player5" class="float-left">
-    <label for="player5-name">Player 5</label>
-    <p id="player5-name">None</p>
-    <form id="player5-name-form">
-      <input id="player5-name-input" type="text">
-      <button id="player5-name-submit">Send</button>
-    </form>
-  </div>
+			<div id="movie-to-blanks-div">
 
-  <br><br>
+				<h1 id="movie-to-blanks-header">Movie to Guess</h1>
+				<h3 id="movie-to-guess">_ _ _ _ _ _ _ _ _</h3>
 
-  <div id="game-text" class="clearfix">
-    <h3>Game Text</h3>
-    <button id="player-ready">Ready?</button>
-    <h3 id="game-text-1">None</h3>
-    <h3 id="game-text-2">None</h3>
-  </div>
+			</div>
 
-  <br><br>
-  <div id="chat" class="clearfix">
-    <label for="chat-history">Chat History</label>
-    <div id="chat-history"></div>
-    <form id="chat-form">
-      <input id="chat-input" type="text">
-      <button id="chat-submit">Send</button>
-    </form>
-  </div>
+			<div id="game-status-div">
 
-  <div id="chat-questioner" class="clearfix">
-    <label for="chat-history-questioner">Questioner History</label>
-    <div id="chat-history-questioner"></div>
-  </div>
-  
+				<h1 id="game-status-header">Game Status</h1>
+				<h3 id="game-text-1"></h3>
+				<h3 id="game-text-2"></h3>
+				<button type="button" id="player-ready" class="btn btn-default center-block">button</button>
+				
+			</div>
+
+		</div>
+
+		<!-- Middle Section -->
+		<div class="col-md-6">
+				
+			<!-- Chat box / Movie screen -->
+			<div class="row">
+
+				<div class="col-md-12" id="top-center-div">
+
+					<div id="chat-box-outline">
+
+						<div id="chat-history">
+						</div>
+
+					</div>
+
+						<form class="form-inline" id="chat-form">
+						<input type="text" class="form-control" id="chat-input" placeholder="Enter message here">
+						<button id="chat-submit" class="btn btn-default">Send</button>
+						</form>
+
+				</div>
+
+			</div>
+				
+			<!-- User Seats -->
+			<div class="row">
+
+				<!-- Empty space -->
+				<div class="col-md-1">
+				</div>
+
+				<!-- User 1 -->
+				<div class="col-md-2 player player-margin15">
+                    <div id =nameInput>
+                        <form>
+                       		 <input type="text" class="nameInput" id="player1-name-input" name="nameInput" placeholder="Name">
+                        </form>
+                        <button type="button" class="btn btn-sm" id="player1-name-submit">Enter</button>
+                    </div>  
+                </div>
+							
+				<!-- User 2 -->
+				<div class="col-md-2 player player-margin24">
+                    <div id =nameInput>
+                        <form>
+                            <input type="text" class="nameInput" id="player2-name-input" name="nameInput" placeholder="Name">
+                        </form>
+                        <button type="button" class="btn btn-sm" id="player2-name-submit">Enter</button>
+                    </div>  
+                </div>
+
+				<!-- User 3 -->
+                <div class="col-md-2 player player-margin3" id="playerName" placeholder="Name">
+                    <div id =nameInput>
+                        <form>
+                            <input type="text" class="nameInput" id="player3-name-input" name="nameInput" placeholder="Name">
+                        </form>
+                        <button type="button" class="btn btn-sm" id="player3-name-submit">Enter</button>
+                    </div>    
+                </div>
+
+				<!-- User 4 -->
+                <div class="col-md-2 player player-margin24">
+                    <div id =nameInput>
+                        <form>
+                            <input type="text" class="nameInput" id="player4-name-input" name="nameInput" placeholder="Name">
+                        </form>
+                        <button type="button" class="btn btn-sm" id="player4-name-submit">Enter</button>
+                    </div>    
+                </div>
+
+				<!-- User 5 -->
+                <div class="col-md-2 player player-margin15">
+                    <div id =nameInput>
+                        <form>
+                            <input type="text" class="nameInput" id="player5-name-input" name="nameInput" placeholder="Name">
+                        </form>
+                        <button type="button" class="btn btn-sm" id="player5-name-submit">Enter</button>
+                    </div> 
+                </div>
+
+				<!-- Empty space -->
+				<div class="col-md-1">
+				</div>
+
+			</div>
+
+		</div>
+
+		<!-- Right Section -->
+		<div class="col-md-3">
+
+		<div id="questioner-div">
+
+				<h1 id="questioner-div-header">Questioner Chat</h1>
+
+				<div id="questioner-chat">
+
+					<p>This movie was released in 1999</p>
+					<p>This movie was released in 1999</p>
+					<p>This movie was released in 1999</p>
+					<p>This movie was released in 1999</p>
+					<p>This movie was released in 1999</p>
+					<p>This movie was released in 1999</p>
+					<p>This movie was released in 1999</p>
+					<p>This movie was released in 1999</p>
+					<p>This movie was released in 1999</p>
+					<p>This movie was released in 1999</p>
+					<p>This movie was released in 1999</p>
+					<p>This movie was released in 1999</p>
+
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
 </body>
 
-  <script src="./assets/javascript/globalvars.js"></script>  
-  <script src="./assets/javascript/seat.js"></script>
-  <script src="./assets/javascript/game.js"></script>
-  <script src="./assets/javascript/main.js"></script>
+<script type="text/javascript" src="assets/javascript/globalvars.js"></script>
+<script type="text/javascript" src="assets/javascript/seat.js"></script>
+<script type="text/javascript" src="assets/javascript/game.js"></script>
+<script type="text/javascript" src="assets/javascript/main.js"></script>
 
 </html>
