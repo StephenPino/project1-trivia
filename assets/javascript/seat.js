@@ -1,4 +1,4 @@
-function Seat(num=0, name="", joined=false, points=0, ready=false){
+function Seat(num=0, name="Empty", joined=false, points=0, ready=false){
   this.number=num;
   this.name=name;
   this.joined=joined;
@@ -16,13 +16,25 @@ function Seat(num=0, name="", joined=false, points=0, ready=false){
   this.sendAnswer = function(message){
     //main_game.checkAnswer(message, this.number);
   };
-  this.refSetValues = function(){
+  this.fbSetSeat = function(){
     this.ref.set({name: this.name, joined: this.joined, ready: this.ready, points: this.points});
   };
-  this.refDisconnectAttach = function(){
-    this.ref.onDisconnect().set({name: "", joined: false, ready: false, points: 0});
+  this.fbDisconnectAttach = function(){
+    this.ref.onDisconnect().set({name: "Empty", joined: false, ready: false, points: 0});
   };
+  //this method will call the ajax to get the random movie, and some logic if they want to skip the movie.
   this.getAnswer = function() {
-    main_game.setAnswer("The Princess Bride");
+    //main_game.setAnswer("The Princess Bride");
+    main_game.setAnswer(prompt("What is the Answer?"));
+  };
+  this.jqDisplayName = function() {
+    $("#player"+num+"-name").text(this.name);
+  };
+  this.jqDisplayPoints = function() {
+    $("#player"+num+"-points").text(this.points);
+  };
+  this.jqDisplayAll = function() {
+    this.jqDisplayName();
+    this.jqDisplayPoints();
   };
 }
