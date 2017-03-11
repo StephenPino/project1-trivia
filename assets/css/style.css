@@ -116,13 +116,13 @@ p {
 	border-radius: 20px
 }
 
-#questioner-chat{
+#hinter-chat{
 	overflow: auto;
 	height: 320px;
 	height: 82%;
 }
 
-#questioner-chat > p {
+#hinter-chat > p {
 	margin-left: 25px;
 	margin-top: 10px;
 }

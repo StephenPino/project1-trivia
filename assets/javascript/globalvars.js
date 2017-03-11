@@ -1,18 +1,27 @@
 const gameStates = {
   waitingForPlayers: "Waiting for all players",
-  readyToStart: "Everyone has joined that is going to, ready to start round",
-  waitingForQuestion: "Waiting for Questioneer to enter a question",
-  waitingForAnswer: "Waiting for correct answer",
-  questionAnswered: "Question has been correctly answered",
+  readyToStartGame: "Everyone is ready, ready to start game",
+  readyToStartRound: "Ready to start next round",
+  waitingForGetAnswer: "Waiting on setting the answer by the hinter",
+  waitingForHint: "Waiting for hinter to enter a hint",
+  waitingForAnswer: "Waiting for correct guess for the answer",
+  hintAnswered: "Answer has been correctly guessed",
+  hintUnanswered: "Answer has not been guessed due to time running out",
   roundOver: "All players have been the quesitoner",
   gameOver: "All Rounds complete"
 };
 
 const seatStates = {
   waitingForGameToStart: "Player has joined and is waiting to begin",
-  questioner: "You are the questioner",
+  hinter: "You are the hinter",
   emptySlot: "No one has claimed this seat",
-  answerer: "You are trying to answer the question"
+  answerer: "You are trying to answer the hint"
+};
+
+const windowStates = {
+  spectator: "This window is spectating",
+  player: "This window a regular player",
+  host: "This window is acting as the host"
 };
 
   // Initialize Firebase
