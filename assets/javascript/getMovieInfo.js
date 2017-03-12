@@ -27,7 +27,7 @@ function getMovieDetails(movieYear) {
             //console log for testing
             //console.log("title " + movieTitle);
             //console.log("poster" + movieImg);
-            getMoviePlot(movieTitle, results[x].release_date.substring(0,3), false, false);
+            getMoviePlot(movieTitle, results[x].release_date.substring(0,4), false, false);
             main_game.jqReturnAnswer(movieTitle);
         });
 }
