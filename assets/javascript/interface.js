@@ -31,4 +31,8 @@ $(document).ready(function(){
 		buttonReadyState(ready);
 	});
 
+	$("#show-plot").on("click", function() {
+		$("#modalMoviePlot").modal("show");
+	});
+
 });

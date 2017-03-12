@@ -447,7 +447,7 @@ var main_game = {
     this.jqGameText2("The answer was: "+this.answer);
   },
 
-   calculatePoints: function() {
+  calculatePoints: function() {
     if(this.answerer!==0) {
       if(this.windowSeat.number===this.hinter){
         this.windowSeat.points+=1;
@@ -572,7 +572,14 @@ var main_game = {
 
   },
 
-  //only the hinter is going to call this function
+  //called by themoviedb api .done call
+  jqReturnAnswer: function(str) {
+    var myModal=$("#modalConfirmMovie");
+    myModal.find(".modal-movie").text(str);
+    myModal.modal("show");
+  },
+
+  //only the hinter window is going to call this function
   setAnswer: function(str) {
     this.answer=str;
     this.mask=[];
@@ -583,8 +590,15 @@ var main_game = {
         this.mask[i]=false;
 
     //console.log(this.mask);
+    this.jqSetMoviePlotModal();
     this.fbSetMask(this.hinter, JSON.stringify(this.mask));
     this.fbSetState(this.hinter, gameStates.waitingForHint);
+  },
+
+  jqSetMoviePlotModal: function() {
+    var myModal = $("#modalMoviePlot");
+    myModal.find(".modal-movie").text(movieTitle);
+    myModal.find(".modal-plot").text(moviePlot);
   },
 
   //only the hinter is going to call this function

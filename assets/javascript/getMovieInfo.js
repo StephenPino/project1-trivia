@@ -26,21 +26,36 @@ function getMovieDetails(movieYear) {
             movieImg = "//https://image.tmdb.org/t/p/w500" + movieImg;
             //console log for testing
             //console.log("title " + movieTitle);
-            console.log("poster" + movieImg);
-            //getMoviePlot(movieTitle);
-            main_game.setAnswer(movieTitle);
+            //console.log("poster" + movieImg);
+            getMoviePlot(movieTitle, results[x].release_date.substring(0,3), false, false);
+            main_game.jqReturnAnswer(movieTitle);
         });
 }
 
-function getMoviePlot(movieTitle) {
+function getMoviePlot(movieTitle, year, useFilm, useYear) {
     var queryTitle = movieTitle; //+ "_(film)";
-    //console.log(queryTitle);
+    if(useYear)
+        queryTitle+=" ("+year+" film)";
+    else if(useFilm)
+        queryTitle+=" (film)";
+    console.log(queryTitle);
     wtf_wikipedia.from_api(queryTitle, "en", function(markup) {
+        moviePlot ="";
         var object = wtf_wikipedia.parse(markup);
+        
         //console.log(object);
-        for (i = 0; i < object.text.get("Plot").length; i++) {
-            //console.log(object.text.get("Plot")[i].text);
-            moviePlot = moviePlot + JSON.stringify(object.text.get("Plot")[i].text);
+        if((object.text===undefined || object.text.get("Plot")===undefined) && useFilm===false) {
+            getMoviePlot(movieTitle, year, true, false);
+        }
+        else if((object.text===undefined || object.text.get("Plot")===undefined) && useFilm===true && useYear===false) {
+            getMoviePlot(movieTitle, year, true, true);
+        }
+        else {
+            var plotObject =object.text.get("Plot");
+            for (var i = 0; i < plotObject.length; i++) {
+                //console.log(object.text.get("Plot")[i].text);
+                moviePlot = moviePlot +"  "+ plotObject[i].text;
+            }
         }
     });
 }
