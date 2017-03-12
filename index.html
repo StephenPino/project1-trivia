@@ -57,6 +57,7 @@
 				<h3 id="game-text-1"></h3>
 				<h3 id="game-text-2"></h3>
 				<button id="player-ready" class="btn btn-default center-block" data-state="unready">Ready?</button>
+        <button id="show-plot" class="btn btn-default center-block">Show Plot</button>
 				
 			</div>
 
@@ -204,6 +205,45 @@
 	</div>
 
 </div>
+
+
+<div class="modal fade" id="modalConfirmMovie" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Keep movie or reroll?</h4>
+      </div>
+      <div class="modal-body">
+          <p>The random movie is: <span class="modal-movie"></span></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default modal-button" 
+          data-action="reroll">Reroll
+        </button>
+        <button type="button" class="btn btn-primary modal-button" 
+          data-dismiss="modal" data-action="set">Set
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalMoviePlot" tabindex="-1" role="dialog" aria-labelledby="moviesPlot">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="moviesPlot"><span class="modal-movie"></span>'s Plot</h4>
+      </div>
+      <div class="modal-body">
+          <p class="modal-plot"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default modal-button" data-dismiss="modal">Dismiss</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 </body>
 
