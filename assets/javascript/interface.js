@@ -11,6 +11,7 @@ function showNameDisplay(num){
 	$("#player" + num + "-points-p").addClass("hidden");
 }
 
+
 function buttonReadyState(ready){
 	if(!ready) {
 		$("#player-ready").html("Ready?");
@@ -20,13 +21,10 @@ function buttonReadyState(ready){
 		$("#player-ready").html("Unready?");
 		$(this).attr("data-state", "ready");
 	}
-
 }
 
 // Ready / Unready Status
 $("#player-ready").on("click", function() {
-
 	var ready=main_game.windowReady();
 	buttonReadyState(ready);
-
 });
