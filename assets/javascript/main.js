@@ -35,11 +35,6 @@ $(document).ready(function(){
     $("#chat-input").val("");
   });
 
-  $("#player-ready").on("click", function(event){
-    event.preventDefault();
-    main_game.windowReady();
-  });
-
 
   database.ref("player/1").on("value", function(snapshot){
       if(snapshot.exists())
