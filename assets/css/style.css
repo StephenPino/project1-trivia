@@ -1,4 +1,5 @@
 /*Global Elements*/
+
 body{
 	background-color: #557E97;
 	background-image: url("../images/dark_wood.png");
@@ -24,9 +25,9 @@ p {
     display: none; 
 }
 
-/*End Global Elements*/
-
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
+
+/*Title Elements*/
 
 #title {
 	font-family: 'Lobster', Georgia, Times, serif;
@@ -35,7 +36,23 @@ p {
 	color: white;
 }
 
+
+#movie-background {
+	position: absolute;
+	left: 50px;
+	z-index: -1;
+	height: 120%;
+	width:120%;
+	padding-right: 70px;
+	padding-left: 50px;
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+
 /*Chat Box*/
+
 #chat-box-outline {
 	margin-top: 15px;
 	background-color: #C1D2DC;
@@ -64,29 +81,40 @@ p {
 }
 
 #chat-input {
-	width: 80%;
+	width: 75%;
 	background-color: #C1D2DC;
 	color: black;
 }
 
 #chat-submit {
-	width: 19.3%;
+	width: 19%;
 	background-color: #C1D2DC;
 
 }
 
-/*End Chat Box Material*/
-
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
+
+/*Divs*/
 
 #top-center-div {
 	padding-bottom: 30px;
     border-bottom: 1px solid #C1D2DC;
 }
 
-#movie-to-blanks-div {
+#time-remaining-div {
+	min-height: 100px;
 	width: 90%;
-	height: 100px;
+	background-color: white;
+	margin: 0 auto;
+	position: relative;
+	margin-top: 30px;
+	border-radius: 20px
+
+}
+
+#movie-to-blanks-div {
+	min-height: 100px;
+	width: 90%;
 	background-color: white;
 	margin: 0 auto;
 	position: relative;
@@ -106,17 +134,56 @@ p {
 
 }
 
+#time-remaining-header {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	
+
+}
+
+#movie-to-blanks-header {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+#game-status-header {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+#time-remaining-holder {
+	background-color: #C1D2DC;
+	border-top-right-radius: 20px;
+	border-top-left-radius: 20px;
+	margin-bottom: 20px;
+
+}
+
+#game-status-holder {
+	background-color: #C1D2DC;
+	border-top-right-radius: 20px;
+	border-top-left-radius: 20px;
+	margin-bottom: 20px;
+}
+
+#movie-to-blanks-holder {
+	background-color: #C1D2DC;
+	border-top-right-radius: 20px;
+	border-top-left-radius: 20px;
+	margin-bottom: 20px;
+}
+
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
 
 /*Questioner Chat*/
 
-#questioner-div-header {
+#hinter-div-header {
 	padding-top: 10px;
-	padding-bottom: 5px;
-	border-bottom: 1px solid black;
+	padding-bottom: 15px;
+	border-bottom: 2px solid black;
 }
 
-#questioner-div {
+#hinter-div {
 	width: 90%;
 	height: 400px;
 	background-color: white;
@@ -124,6 +191,12 @@ p {
 	position: relative;
 	margin-top: 30px;
 	border-radius: 20px
+}
+
+#hinter-holder {
+	background-color: #C1D2DC;
+	border-top-right-radius: 20px;
+	border-top-left-radius: 20px;
 }
 
 #hinter-chat{
@@ -136,8 +209,6 @@ p {
 	margin-left: 25px;
 	margin-top: 10px;
 }
-
-/*End Questioner Chat*/
 
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -163,5 +234,9 @@ p {
 
 .btn-sm {
 	width: 100%;
-	margin-top::;
+	margin-top: 5px;
+}
+
+.panel {
+	background-color: #C1D2DC;
 }

@@ -14,9 +14,6 @@
 
 <!-- Google Font -->
 <link href="https://fonts.googleapis.com/css?family=Arya|Fjord+One" rel="stylesheet">
-
-
-
 <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'>
 
@@ -37,23 +34,26 @@
 		<!-- Left Section -->
 		<div class="col-md-3">
 		
-			<div id="movie-to-blanks-div">
-
-				<h1 id="movie-to-blanks-header">Time Remaining</h1>
-				<h3><span id="timer">60</span> seconds</h3>
+			<div id="time-remaining-div">
+				<div id="time-remaining-holder">
+					<h1 id="time-remaining-header">Time Remaining</h1>
+				</div>
+					<h3><span id="timer"></span> seconds</h3>
 				
 			</div>
 
 			<div id="movie-to-blanks-div">
-
-				<h1 id="movie-to-blanks-header">Movie to Guess</h1>
-				<h3 id="movie-to-guess"></h3>
+				<div id="movie-to-blanks-holder">
+					<h1 id="movie-to-blanks-header">Movie to Guess</h1>
+				</div>	
+					<h3 id="movie-to-guess"></h3>
 
 			</div>
 
 			<div id="game-status-div">
-
-				<h1 id="game-status-header">Game Status</h1>
+				<div id="game-status-holder">
+					<h1 id="game-status-header">Game Status</h1>
+				</div>
 				<h3 id="game-text-1"></h3>
 				<h3 id="game-text-2"></h3>
 				<button type="button" id="player-ready" class="btn btn-default center-block" data-state="unready">Ready?</button>
@@ -66,7 +66,7 @@
 		<div class="col-md-6">
 				
 			<!-- Chat box / Movie screen -->
-			<div class="row" id="movie-screen">
+			<div class="row" id="movie-screen"> 
 
 				<div class="col-md-12" id="top-center-div">
 
@@ -83,7 +83,7 @@
 
 					</div>
 
-						<form class="form-inline" id="chat-form">
+						<form class="form-inline text-center" id="chat-form">
 						<input type="text" class="form-control" id="chat-input" placeholder="Enter message here">
 						<button id="chat-submit" class="btn btn-default">Send</button>
 						</form>
@@ -190,9 +190,11 @@
 		<!-- Right Section -->
 		<div class="col-md-3">
 
-		<div id="questioner-div">
+		<div id="hinter-div">
 
-				<h1 id="questioner-div-header">Questioner Chat</h1>
+			<div id="hinter-holder">
+				<h1 id="hinter-div-header">Hinter Chat</h1>
+			</div>
 
 				<div id="hinter-chat">
 				</div>
