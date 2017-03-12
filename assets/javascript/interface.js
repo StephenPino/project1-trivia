@@ -23,8 +23,12 @@ function buttonReadyState(ready){
 	}
 }
 
-// Ready / Unready Status
-$("#player-ready").on("click", function() {
-	var ready=main_game.windowReady();
-	buttonReadyState(ready);
-});
+$(document).ready(function(){
+
+	// Ready / Unready Status
+	$("#player-ready").on("click", function() {
+		var ready=main_game.windowReady();
+		buttonReadyState(ready);
+	});
+
+};
