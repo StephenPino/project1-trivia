@@ -1,6 +1,8 @@
 /*Global Elements*/
+
 body{
 	background-color: #557E97;
+	background-image: url("../images/dark_wood.png");
 }
 
 h1 {
@@ -23,13 +25,36 @@ p {
     display: none; 
 }
 
-/*End Global Elements*/
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+
+/*Title Elements*/
+
+#title {
+	font-family: 'Lobster', Georgia, Times, serif;
+	font-size: 90px;
+	line-height: 100px;
+	color: white;
+}
+
+
+#movie-background {
+	position: absolute;
+	left: 50px;
+	z-index: -1;
+	height: 120%;
+	width:120%;
+	padding-right: 70px;
+	padding-left: 50px;
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
 
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
 
 /*Chat Box*/
+
 #chat-box-outline {
-	margin-top: 30px;
+	margin-top: 15px;
 	background-color: #C1D2DC;
 	width: 100%;
 	height: 250px;
@@ -56,29 +81,40 @@ p {
 }
 
 #chat-input {
-	width: 80%;
+	width: 75%;
 	background-color: #C1D2DC;
 	color: black;
 }
 
 #chat-submit {
-	width: 19.3%;
+	width: 19%;
 	background-color: #C1D2DC;
 
 }
 
-/*End Chat Box Material*/
-
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
+
+/*Divs*/
 
 #top-center-div {
 	padding-bottom: 30px;
     border-bottom: 1px solid #C1D2DC;
 }
 
-#movie-to-blanks-div {
+#time-remaining-div {
+	min-height: 100px;
 	width: 90%;
-	height: 100px;
+	background-color: white;
+	margin: 0 auto;
+	position: relative;
+	margin-top: 30px;
+	border-radius: 20px
+
+}
+
+#movie-to-blanks-div {
+	min-height: 100px;
+	width: 90%;
 	background-color: white;
 	margin: 0 auto;
 	position: relative;
@@ -98,15 +134,56 @@ p {
 
 }
 
-/*Questioner Chat*/
-
-#questioner-div-header {
-	padding-top: 10px;
+#time-remaining-header {
+	padding-top: 5px;
 	padding-bottom: 5px;
-	border-bottom: 1px solid black;
+	
+
 }
 
-#questioner-div {
+#movie-to-blanks-header {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+#game-status-header {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+#time-remaining-holder {
+	background-color: #E7EEF2;
+	border-top-right-radius: 20px;
+	border-top-left-radius: 20px;
+	margin-bottom: 20px;
+
+}
+
+#game-status-holder {
+	background-color: #E7EEF2;
+	border-top-right-radius: 20px;
+	border-top-left-radius: 20px;
+	margin-bottom: 20px;
+}
+
+#movie-to-blanks-holder {
+	background-color: #E7EEF2;
+	border-top-right-radius: 20px;
+	border-top-left-radius: 20px;
+	margin-bottom: 20px;
+}
+
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+
+/*Questioner Chat*/
+
+#hinter-div-header {
+	padding-top: 10px;
+	padding-bottom: 15px;
+	border-bottom: 2px solid black;
+}
+
+#hinter-div {
 	width: 90%;
 	height: 400px;
 	background-color: white;
@@ -116,45 +193,50 @@ p {
 	border-radius: 20px
 }
 
-#questioner-chat{
+#hinter-holder {
+	background-color: #E7EEF2;
+	border-top-right-radius: 20px;
+	border-top-left-radius: 20px;
+}
+
+#hinter-chat{
 	overflow: auto;
 	height: 320px;
 	height: 82%;
 }
 
-#questioner-chat > p {
+#hinter-chat > p {
 	margin-left: 25px;
 	margin-top: 10px;
 }
 
-/*End Questioner Chat*/
-
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
 
  /* players*/
-.player{
-    height:100px;
-    width:100px;
-    border: 1px solid blue;
-    background-color: blue;
-    margin:2px;
+.seats15 {
+	position: relative;
+	top: 25px;
 }
 
-.player-margin24{
-	margin-top: 90px;
+.seats24 {
+	position: relative;
+	top: 75px;
 }
 
-.player-margin3{
-	margin-top: 140px;
-}
-
-.player-margin15{
-	margin-top: 20px;
-}
-.playerName:{ 
-	width:75px
+#seat3 {
+	position: relative;
+	top: 125px;
 }
 
 .nameInput {
-    width: 75px;
+    width: 100%;
+}
+
+.btn-sm {
+	width: 100%;
+	margin-top: 5px;
+}
+
+.panel {
+	background-color: #5F8399;
 }
