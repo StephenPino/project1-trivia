@@ -308,11 +308,11 @@ var main_game = {
           break;
         case gameStates.roundOver:
           //this.displayRoundOver();
-          this.gameStartTimers(3, this.hinter, gameStates.readyToStartRound);
+          this.gameStartTimers(3, 0, gameStates.readyToStartRound);
           break;
         case gameStates.gameOver:
           this.displayGameOver();
-          this.gameStartTimers(3, this.hinter, gameStates.waitingForPlayers);
+          this.gameStartTimers(3, 0, gameStates.waitingForPlayers);
           break;
       }
     }
