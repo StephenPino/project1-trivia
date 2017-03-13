@@ -152,7 +152,7 @@ p {
 }
 
 #time-remaining-holder {
-	background-color: #C1D2DC;
+	background-color: #E7EEF2;
 	border-top-right-radius: 20px;
 	border-top-left-radius: 20px;
 	margin-bottom: 20px;
@@ -160,14 +160,14 @@ p {
 }
 
 #game-status-holder {
-	background-color: #C1D2DC;
+	background-color: #E7EEF2;
 	border-top-right-radius: 20px;
 	border-top-left-radius: 20px;
 	margin-bottom: 20px;
 }
 
 #movie-to-blanks-holder {
-	background-color: #C1D2DC;
+	background-color: #E7EEF2;
 	border-top-right-radius: 20px;
 	border-top-left-radius: 20px;
 	margin-bottom: 20px;
@@ -194,7 +194,7 @@ p {
 }
 
 #hinter-holder {
-	background-color: #C1D2DC;
+	background-color: #E7EEF2;
 	border-top-right-radius: 20px;
 	border-top-left-radius: 20px;
 }
@@ -238,5 +238,5 @@ p {
 }
 
 .panel {
-	background-color: #C1D2DC;
+	background-color: #5F8399;
 }
