@@ -14,8 +14,8 @@
 
 <!-- Google Font -->
 <link href="https://fonts.googleapis.com/css?family=Arya|Fjord+One" rel="stylesheet">
-<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'
 
 <!-- style.css -->
 <link rel="stylesheet" type="text/css" href="assets/css/style.css">
@@ -56,7 +56,8 @@
 				</div>
 				<h3 id="game-text-1"></h3>
 				<h3 id="game-text-2"></h3>
-				<button type="button" id="player-ready" class="btn btn-default center-block" data-state="unready">Ready?</button>
+				<button id="player-ready" class="btn btn-default center-block" data-state="unready">Ready?</button>
+        <button id="show-plot" class="btn btn-default center-block">Show Plot</button>
 				
 			</div>
 
@@ -207,13 +208,54 @@
 
 </div>
 
+
+<div class="modal fade" id="modalConfirmMovie" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Keep movie or reroll?</h4>
+      </div>
+      <div class="modal-body">
+          <p>The random movie is: <span class="modal-movie"></span></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default modal-button" 
+          data-action="reroll">Reroll
+        </button>
+        <button type="button" class="btn btn-primary modal-button" 
+          data-dismiss="modal" data-action="set">Set
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalMoviePlot" tabindex="-1" role="dialog" aria-labelledby="moviesPlot">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="moviesPlot"><span class="modal-movie"></span>'s Plot</h4>
+      </div>
+      <div class="modal-body">
+          <p class="modal-plot"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default modal-button" data-dismiss="modal">Dismiss</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 </body>
 
-<script type="text/javascript" src="assets/javascript/fuzzyset.js"></script>
 <script type="text/javascript" src="assets/javascript/globalvars.js"></script>
+<script type="text/javascript" src="assets/javascript/wtf_wikipedia.min.js"></script>
+<script type="text/javascript" src="assets/javascript/getMovieInfo.js"></script>
+<script type="text/javascript" src="assets/javascript/interface.js"></script>
+<script type="text/javascript" src="assets/javascript/fuzzyset.js"></script>
 <script type="text/javascript" src="assets/javascript/seat.js"></script>
 <script type="text/javascript" src="assets/javascript/game.js"></script>
 <script type="text/javascript" src="assets/javascript/main.js"></script>
-<script type="text/javascript" src="assets/javascript/interface.js""></script>
 
 </html>

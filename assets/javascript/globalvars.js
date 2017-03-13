@@ -1,3 +1,4 @@
+//game.js Enums
 const gameStates = {
   waitingForPlayers: "Waiting for all players",
   readyToStartGame: "Everyone is ready, ready to start game",
@@ -7,6 +8,7 @@ const gameStates = {
   waitingForAnswer: "Waiting for correct guess for the answer",
   hintAnswered: "Answer has been correctly guessed",
   hintUnanswered: "Answer has not been guessed due to time running out",
+  turnOver: "The answer has been gussed/notguessed",
   roundOver: "All players have been the quesitoner",
   gameOver: "All Rounds complete"
 };
@@ -24,7 +26,7 @@ const windowStates = {
   host: "This window is acting as the host"
 };
 
-  // Initialize Firebase
+// Initialize Firebase
 var config = {
   apiKey: "AIzaSyBRyByGGGi7bmIeFskezDVuuRWPfw0jpkQ",
   authDomain: "ut-bootcamp-project1.firebaseapp.com",
@@ -34,3 +36,9 @@ var config = {
 };
 firebase.initializeApp(config);
 var database=firebase.database();
+
+//for getMovieInfo.js
+var moviePlot = "";
+var movieTitle = "";
+var movieImg = "";
+var movieYear= null;

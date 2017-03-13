@@ -35,9 +35,14 @@ $(document).ready(function(){
     $("#chat-input").val("");
   });
 
-  $("#player-ready").on("click", function(event){
+  $("#modalConfirmMovie .modal-button").on("click", function(event){
+    //cosole.log("WE CLICKED MODA:S");
     event.preventDefault();
-    main_game.windowReady();
+    var action=$(this).attr("data-action");
+    if(action==="reroll")
+      main_game.getHintAnswer();
+    else if(action==="set")
+      main_game.setAnswer(movieTitle);
   });
 
 

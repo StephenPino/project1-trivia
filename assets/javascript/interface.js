@@ -11,23 +11,28 @@ function showNameDisplay(num){
 	$("#player" + num + "-points-p").addClass("hidden");
 }
 
-$("#player2-name-submit").on("click", function() {
-hideNameDisplay(2);
 
-});
-
-
-// Ready / Unready Status
-$("#player-ready").on("click", function() {
-
-	if($(this).attr("data-state") === "ready") {
+function buttonReadyState(ready){
+	if(!ready) {
 		$("#player-ready").html("Ready?");
 		$(this).attr("data-state", "unready");
-		// main_game.windowSetReady(true);
 	}
 	else {
 		$("#player-ready").html("Unready?");
 		$(this).attr("data-state", "ready");
-		// main_game.windowSetReady(false);
 	}
+}
+
+$(document).ready(function(){
+
+	// Ready / Unready Status
+	$("#player-ready").on("click", function() {
+		var ready=main_game.windowReady();
+		buttonReadyState(ready);
+	});
+
+	$("#show-plot").on("click", function() {
+		$("#modalMoviePlot").modal("show");
+	});
+
 });

@@ -27,6 +27,8 @@ var main_game = {
   hChatRefDisc: null,
   gameRef: database.ref("game"),
   gameRefDisc: null,
+  maskRef: database.ref("mask"),
+  maskRefDisc: null,
 
 
 
@@ -47,8 +49,10 @@ var main_game = {
   },
 
   fbUpdateMask: function(val) {
-    console.log(val.str);
+    //console.log(val.str);
     this.answerMask=JSON.parse(val.str);
+    if(this.gameState===gameStates.waitingForAnswer)
+      this.jqDisplayHiddenAnswer();
   },
 
   fbUpdateGame: function(val) {
@@ -72,6 +76,11 @@ var main_game = {
     tempSeat.ready=val.ready;
     tempSeat.jqDisplayAll();
 
+    if(tempSeat.joined===true)
+      hideNameDisplay(num);
+    else
+      showNameDisplay(num);
+
     var lastCon=this.getLastConnected();
     if(lastCon!==0)
       this.fbDisconnectAttach(lastCon);
@@ -82,9 +91,11 @@ var main_game = {
   playerLeftDuringGame: function(name) {
     this.gameStopTimers();
     this.hinter=0;
+    this.answer="";
+    this.answerer=0;
     this.jqGameText1(name+" has left during an active game!");
     this.jqGameText2("Restarting Game");
-    this.gameStartTimers(3,0,gameStates.waitingForPlayers);
+    this.fbSetState(0,gameStates.waitingForPlayers);
   },
 
   getTempHost: function() {
@@ -116,6 +127,8 @@ var main_game = {
       this.hChatRefDisc.remove();
       this.chatRefDisc=this.chatRef.onDisconnect();
       this.chatRefDisc.remove();
+      this.maskRefDisc=this.maskRef.onDisconnect();
+      this.maskRefDisc.remove();
     }
   },
 
@@ -132,6 +145,10 @@ var main_game = {
       this.chatRefDisc.cancel();
       this.chatRefDisc=null;
     }
+    if(this.maskRefDisc!==null) {
+      this.maskRefDisc.cancel();
+      this.maskRefDisc=null;
+    }
   },
 
   fbTempHostSetGame: function(){
@@ -141,7 +158,7 @@ var main_game = {
   },
 
   fbSetState: function(num, state) {
-    console.log("fb Set State "+num+" "+state);
+    //console.log("fb Set State "+num+" "+state);
     var tempSeat=null;
     if(num===0)
       tempSeat=this.getTempHost();
@@ -155,7 +172,7 @@ var main_game = {
   },
 
   fbSetMask: function(num, string) {
-    console.log("fb Set Mask "+num);
+    //console.log("fb Set Mask "+num);
     var tempSeat=null;
     if(num===0)
       tempSeat=this.getTempHost();
@@ -201,6 +218,7 @@ var main_game = {
           if(this.gameState===gameStates.readyToStartGame){
             this.fbSetState(this.windowSeat.number, gameStates.waitingForPlayers);
           }
+          return false;
         } else {
           this.windowSeat.ready=true;
           this.windowSeat.fbSetSeat();
@@ -209,9 +227,12 @@ var main_game = {
           if(this.allSeatsJoinedReady()) {
             this.fbSetState(this.windowSeat.number,gameStates.readyToStartGame);
           }
+          return true;
         }
       }
     }
+
+    return this.windowSeat.ready;
   },
 
   allSeatsJoinedReady: function() {
@@ -236,13 +257,26 @@ var main_game = {
           this.jqGameText1("Waiting for players"); //Wiatin for more than 2 players to sit and hit ready.
           break;
         case gameStates.readyToStartGame:
-          this.startGame(); //Interval to start Game and timeout
+          this.startGame(3); 
           this.gameStartTimers(3, 0, gameStates.readyToStartRound);
           break;
         case gameStates.readyToStartRound:
-          this.gameStopTimers();  
-          this.startRound();  //Includes startRound
-          this.setAllSeatsUnReady();
+          this.setAllSeatsUnReady(); 
+          if(this.isGameOver()) {
+            console.log("Game Over!");
+            this.gameStartTimers(3, 0, gameStates.gameOver);
+          }
+          else {
+            var roundOver = this.startRound(); 
+            if(roundOver) {
+              console.log("Round OVer");
+              this.gameStartTimers(3, 0, gameStates.roundOver);
+            }
+            else{
+              console.log("Round Starting!");
+              this.gameStartTimers(3, this.hinter, gameStates.waitingForGetAnswer);
+            }
+          }
           break;
         case gameStates.waitingForGetAnswer:
           this.getHintAnswer();
@@ -254,30 +288,31 @@ var main_game = {
         case gameStates.waitingForAnswer:
           this.jqDisplayHiddenAnswer();
           this.displayHint();
-          this.intervalUnhideAnswer(2);
-          //this.startAnswerTimers(30);
-          this.gameStartTimers(30, this.hinter, gameStates.hintUnanswered);
+          this.intervalUnhideAnswer(60, this.answer.length);
+          this.gameStartTimers(60, this.hinter, gameStates.hintUnanswered);
           break;
         case gameStates.hintAnswered:
           this.gameStopTimers();
           this.clearHChat();
           this.displayResults();
           this.calculatePoints();
-          //this.nextRoundTimers(3);
-          //this.startRound();// after an interval
-          this.gameStartTimers(3, this.hinter, gameStates.readyToStartRound);
+          this.gameStartTimers(3, this.hinter, gameStates.turnOver);
           break;
         case gameStates.hintUnanswered:
-          this.gameStopTimers();
           this.clearHChat();
           this.displayNotAnswered();
-          //this.nextRoundTimers(3);
-          //this.startRound();
-          this.gameStartTimers(3, this.hinter, gameStates.readyToStartRound);
+          this.gameStartTimers(3, this.hinter, gameStates.turnOver);
+          break;
+        case gameStates.turnOver:
+          this.fbSetState(0, gameStates.readyToStartRound);
           break;
         case gameStates.roundOver:
+          //this.displayRoundOver();
+          this.gameStartTimers(3, this.hinter, gameStates.readyToStartRound);
+          break;
+        case gameStates.gameOver:
           this.displayGameOver();
-          this.gameStartTimers(0, this.hinter, gameStates.waitingForPlayers);
+          this.gameStartTimers(3, this.hinter, gameStates.waitingForPlayers);
           break;
       }
     }
@@ -310,23 +345,32 @@ var main_game = {
         main_game.displayTimerCount();
       }, 1000);
     this.timeoutId=setTimeout(function(){
+        main_game.gameStopTimers();
         main_game.fbSetState(seat, state);
       }, time*1000);
   },
 
-  startGame: function() {
-    this.round=0;
+  isGameOver: function() {
+    if(this.round===0)
+      return true;
+    else
+      return false;
+  },
+
+  startGame: function(rounds) {
+    this.round=rounds;
     this.jqGameText1("Countdown to game start has begun!");
   },
 
   startRound: function() {
+    --this.round;
     this.hinter=this.getHinter();
     if(this.hinter===-1){
       this.hinter=0;
-      this.fbSetState(0,gameStates.roundOver);
+      return true;
     }
     else 
-      this.fbSetState(this.hinter, gameStates.waitingForGetAnswer);
+      return false;
   },
 
   getHinter: function() {
@@ -341,34 +385,37 @@ var main_game = {
   },
 
   getHintAnswer: function() {
-    if(this.windowSeat.number === this.hinter)
-        this.windowSeat.getAnswer();
+    if(this.windowSeat.number === this.hinter) {
+      getMovieDetails(randomDate("1979", "2017"));
+    }
   },
 
   displayTimerCount: function() {
     this.jqDisplayTimeLeft();
-    --(this.timeLeft);
+    if(this.timeLeft>0)
+      --(this.timeLeft);
   },
 
   setFuzzyCompare: function() {
     this.fuzzyCompare = FuzzySet();
-    this.fuzzyCompare.add(this.answer);
+    this.fuzzyCompare.add(this.answer.toLowerCase());
   },
 
   displayGetHint: function() {
     this.jqGameText1("The Hinter is "+this.seats[this.hinter].name);
     if(this.hinter===this.windowSeat.number) {
-      this.jqGameText2("Please enter in a hint in the chat box");
+      this.jqGameText1("The movie is: "+this.answer);
+      this.jqGameText2("Please enter the first hint in the chat box");
     }
     else {
-      this.jqGameText2("Waiting on Questiner to enter in a hint");
+      this.jqGameText2("Waiting on Hinter to enter in a hint");
     }
   },
 
   displayHint: function() {
     this.jqGameText1("The Hint is: "+this.hint);
      if(this.hinter===this.windowSeat.number) {
-      this.jqGameText2("You may offer hints if you want");
+      this.jqGameText2("You may offer more hints if you want");
     }
     else {
       this.jqGameText2("The chat box is also used as your submit answer box");
@@ -386,10 +433,13 @@ var main_game = {
     }
   },
 
-  intervalUnhideAnswer: function(time) {
+  //display up to 75% of the answer
+  intervalUnhideAnswer: function(time, length, percent=.75) {
+    var revealTime=time/(length*percent);
+
     this.maskIntervalId=setInterval(function(){
         main_game.maskUnhide();
-      }, time*1000);
+      }, revealTime*1000);
   },
 
   displayResults: function() {
@@ -397,7 +447,7 @@ var main_game = {
     this.jqGameText2("The answer was: "+this.answer);
   },
 
-   calculatePoints: function() {
+  calculatePoints: function() {
     if(this.answerer!==0) {
       if(this.windowSeat.number===this.hinter){
         this.windowSeat.points+=1;
@@ -417,6 +467,7 @@ var main_game = {
   },
 
   setAllSeatsUnReady: function() {
+    buttonReadyState(false);
     for(var i=1; i<this.seats.length; ++i){
       this.seats[i].ready=false;
       this.seats[i].fbSetSeat();
@@ -521,7 +572,14 @@ var main_game = {
 
   },
 
-  //only the hinter is going to call this function
+  //called by themoviedb api .done call
+  jqReturnAnswer: function(str) {
+    var myModal=$("#modalConfirmMovie");
+    myModal.find(".modal-movie").text(str);
+    myModal.modal("show");
+  },
+
+  //only the hinter window is going to call this function
   setAnswer: function(str) {
     this.answer=str;
     this.mask=[];
@@ -531,9 +589,16 @@ var main_game = {
       else
         this.mask[i]=false;
 
-    console.log(this.mask);
+    //console.log(this.mask);
+    this.jqSetMoviePlotModal();
     this.fbSetMask(this.hinter, JSON.stringify(this.mask));
     this.fbSetState(this.hinter, gameStates.waitingForHint);
+  },
+
+  jqSetMoviePlotModal: function() {
+    var myModal = $("#modalMoviePlot");
+    myModal.find(".modal-movie").text(movieTitle);
+    myModal.find(".modal-plot").text(moviePlot);
   },
 
   //only the hinter is going to call this function
@@ -545,7 +610,7 @@ var main_game = {
 
   //only the first window to submit the correct answer will call this function
   checkAnswer: function(str, prob=.8) {
-    var tempFuzzArray=this.fuzzyCompare.get(str);
+    var tempFuzzArray=this.fuzzyCompare.get(str.toLowerCase());
     if(tempFuzzArray.length>0)
       if(tempFuzzArray[0][0] > prob){
         this.answerer=this.windowSeat.number;
