@@ -611,7 +611,7 @@ var main_game = {
   //only the first window to submit the correct answer will call this function
   checkAnswer: function(str, prob=.8) {
     var tempFuzzArray=this.fuzzyCompare.get(str.toLowerCase());
-    if(tempFuzzArray.length>0)
+    if(tempFuzzArray!==null && tempFuzzArray.length>0)
       if(tempFuzzArray[0][0] > prob){
         this.answerer=this.windowSeat.number;
         this.fbSetState(this.answerer, gameStates.hintAnswered);
