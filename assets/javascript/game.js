@@ -14,6 +14,7 @@ var main_game = {
   answer: "",
   answerer: 0,
   answerMask: null,
+  posterUrl: "",
 
   fuzzyCompare: null,
 
@@ -40,12 +41,12 @@ var main_game = {
     for (var i = 1; i < this.seats.length; ++i)
       this.seats[i].fbSetSeat();
 
-    this.gameRef.set({ gameState: gameStates.waitingForPlayers, hinter: 0, hint: "", answerer: 0, answer: "" });
+    this.gameRef.set({ gameState: gameStates.waitingForPlayers, hinter: 0, hint: "", answerer: 0, answer: "", poster: "" });
 
   },
 
   fbSetGame: function() {
-    this.gameRef.set({ gameState: this.gameState, hint: this.hint, hinter: this.hinter, answer: this.answer, answerer: this.answerer });
+    this.gameRef.set({ gameState: this.gameState, hint: this.hint, hinter: this.hinter, answer: this.answer, answerer: this.answerer, poster: this.posterUrl });
   },
 
   fbUpdateMask: function(val) {
@@ -61,6 +62,7 @@ var main_game = {
     this.hint = val.hint;
     this.answer = val.answer;
     this.answerer = val.answerer;
+    this.posterUrl = val.poster;
     this.checkGameState();
   },
 
@@ -576,6 +578,7 @@ var main_game = {
   //only the hinter window is going to call this function
   setAnswer: function(str) {
     this.answer = str;
+    this.posterUrl = movieImg;
     this.mask = [];
     for (var i = 0; i < str.length; ++i)
       if (str[i] === ' ')
@@ -622,12 +625,12 @@ var main_game = {
   jqDisplayAnswer: function(isAnswered) {
     var modal = $("#modalMoviePoster");
     if (isAnswered) {
-      modal.find(".movie-guesser").html(this.answerer);
+      modal.find(".movie-guesser").text(this.seats[this.answerer].name);
     } else {
-      modal.find(".movie-guesser").html("No one");
+      modal.find(".movie-guesser").text("No one");
     }
-    modal.find(".movie-title").html(movieTitle);
-    modal.find(".movie-date").html(movieYear);
+    modal.find(".movie-title").text(movieTitle);
+    modal.find(".movie-date").text(movieYear);
     modal.find(".movie-poster").attr("src", movieImg);
     modal.modal("show");
   },
