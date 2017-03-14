@@ -15,6 +15,7 @@ var main_game = {
   answerer: 0,
   answerMask: null,
   posterUrl: "",
+  movieYear: "",
 
   fuzzyCompare: null,
 
@@ -41,12 +42,12 @@ var main_game = {
     for (var i = 1; i < this.seats.length; ++i)
       this.seats[i].fbSetSeat();
 
-    this.gameRef.set({ gameState: gameStates.waitingForPlayers, hinter: 0, hint: "", answerer: 0, answer: "", poster: "" });
+    this.gameRef.set({ gameState: gameStates.waitingForPlayers, hinter: 0, hint: "", answerer: 0, answer: "", poster: "", year: "" });
 
   },
 
   fbSetGame: function() {
-    this.gameRef.set({ gameState: this.gameState, hint: this.hint, hinter: this.hinter, answer: this.answer, answerer: this.answerer, poster: this.posterUrl });
+    this.gameRef.set({ gameState: this.gameState, hint: this.hint, hinter: this.hinter, answer: this.answer, answerer: this.answerer, poster: this.posterUrl, year: this.movieYear});
   },
 
   fbUpdateMask: function(val) {
@@ -63,6 +64,7 @@ var main_game = {
     this.answer = val.answer;
     this.answerer = val.answerer;
     this.posterUrl = val.poster;
+    this.movieYear = val.year;
     this.checkGameState();
   },
 
@@ -123,7 +125,7 @@ var main_game = {
   fbDisconnectAttach: function(num) {
     if (num === this.windowSeat.number) {
       this.gameRefDisc = this.gameRef.onDisconnect();
-      this.gameRefDisc.set({ gameState: gameStates.waitingForPlayers, hinter: 0, hint: "", answerer: 0, answer: "" });
+      this.gameRefDisc.set({ gameState: gameStates.waitingForPlayers, hinter: 0, hint: "", answerer: 0, answer: "", poster: "", year: ""});
       this.hChatRefDisc = this.hChatRef.onDisconnect();
       this.hChatRefDisc.remove();
       this.chatRefDisc = this.chatRef.onDisconnect();
@@ -168,7 +170,7 @@ var main_game = {
 
     if (this.windowSeat.number === tempSeat.number) {
       console.log("This Window is changing state to: " + state);
-      this.gameRef.set({ gameState: state, hint: this.hint, hinter: this.hinter, answer: this.answer, answerer: this.answerer });
+      this.gameRef.set({ gameState: state, hint: this.hint, hinter: this.hinter, answer: this.answer, answerer: this.answerer, poster: this.posterUrl, year: this.movieYear});
     }
   },
 
@@ -308,6 +310,7 @@ var main_game = {
           break;
         case gameStates.roundOver:
           //this.displayRoundOver();
+          --this.round;
           this.gameStartTimers(3, 0, gameStates.readyToStartRound);
           break;
         case gameStates.gameOver:
@@ -351,7 +354,7 @@ var main_game = {
   },
 
   isGameOver: function() {
-    if (this.round === 0)
+    if (this.round === 1)
       return true;
     else
       return false;
@@ -363,7 +366,6 @@ var main_game = {
   },
 
   startRound: function() {
-    --this.round;
     this.hinter = this.getHinter();
     if (this.hinter === -1) {
       this.hinter = 0;
@@ -579,6 +581,7 @@ var main_game = {
   setAnswer: function(str) {
     this.answer = str;
     this.posterUrl = movieImg;
+    this.movieYear = movieYear;
     this.mask = [];
     for (var i = 0; i < str.length; ++i)
       if (str[i] === ' ')
@@ -629,9 +632,9 @@ var main_game = {
     } else {
       modal.find(".movie-guesser").text("No one");
     }
-    modal.find(".movie-title").text(movieTitle);
-    modal.find(".movie-date").text(movieYear);
-    modal.find(".movie-poster").attr("src", movieImg);
+    modal.find(".movie-title").text(this.answer);
+    modal.find(".movie-date").text(this.movieYear);
+    modal.find(".movie-poster").attr("src", this.posterUrl);
     modal.modal("show");
   },
   

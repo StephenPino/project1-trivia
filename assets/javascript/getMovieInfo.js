@@ -41,23 +41,48 @@ function getMoviePlot(movieTitle, year, useFilm, useYear) {
   else if (useFilm)
     queryTitle += " (film)";
   console.log(queryTitle);
-  wtf_wikipedia.from_api(queryTitle, "en", function(markup) {
-    moviePlot = "";
-    var object = wtf_wikipedia.parse(markup);
 
-    //console.log(object);
-    if ((object.text === undefined || object.text.get("Plot") === undefined) && useYear === true) {
-      getMoviePlot(movieTitle, year, true, false);
-    } else if ((object.text === undefined || object.text.get("Plot") === undefined) && useFilm === true && useYear === false) {
-      getMoviePlot(movieTitle, year, false, false);
-    } else if ((object.text === undefined || object.text.get("Plot") === undefined) && useFilm === false && useYear === false) {
-      moviePlot = "No Wikipedia Entry";
-    } else {
-      var plotObject = object.text.get("Plot");
-      for (var i = 0; i < plotObject.length; i++) {
-        //console.log(object.text.get("Plot")[i].text);
-        moviePlot = moviePlot + "  " + plotObject[i].text;
+  var config = {
+    action: "query",
+    titles: queryTitle,
+    prop: "revisions",
+    rvprop: "content",
+    format: "json"
+  };
+
+  $.ajax( {
+    url: "https://en.wikipedia.org/w/api.php",
+    jsonp: "callback", 
+    dataType: 'jsonp', 
+    data: config,
+    xhrFields: { withCredentials: true },
+    success: function(response) { 
+      //console.log(response);
+      var pages = response.query.pages
+      var keys = Object.keys(pages);
+      //console.log(keys);
+      //if (keys[0]==="-1", then page was not found
+      //if the next condition is true, then the reponse is a redirect and not the actual page we want
+      if(keys[0]==="-1" || pages[keys[0]].revisions[0]['*'][0]==='#'){
+        if(useYear)
+          getMoviePlot(movieTitle, year, true, false);
+        else if(!useYear && useFilm)
+          getMoviePlot(movieTitle, year, false, false);
+        else
+          moviePlot = "No Wikipedia Entry";
+      }
+      else {
+        var wikiText= pages[keys[0]].revisions[0]['*'];
+        var object = wtf_wikipedia.parse(wikiText);
+        //console.log(object);
+        var plotObject = object.text.get("Plot");
+        //console.log(plotObject);
+        for (var i = 0; i < plotObject.length; i++) {
+          moviePlot = moviePlot + "  " + plotObject[i].text;
+        }
+
       }
     }
   });
+
 }

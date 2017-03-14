@@ -41,6 +41,5 @@ var database = firebase.database();
 var moviePlot = "";
 var movieTitle = "";
 var movieImg = "";
-var movieYear = null;
+var movieYear = "";
 var movieSummary = "";
-var movieImg = "";
