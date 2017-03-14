@@ -3,25 +3,25 @@
 <head>
 	<title>Movie Trivia Game</title>
 
-<!-- JQuery -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <!-- JQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 
-	<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  	<!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css?family=Arya|Fjord+One" rel="stylesheet">
-<link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css?family=Arya|Fjord+One" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'
 
-<!-- style.css -->
-<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <!-- style.css -->
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
 
 </head>
 
@@ -85,8 +85,8 @@
 					</div>
 
 						<form class="form-inline text-center" id="chat-form">
-						<input type="text" class="form-control" id="chat-input" placeholder="Enter message here">
-						<button id="chat-submit" class="btn btn-default">Send</button>
+  						<input type="text" class="form-control" id="chat-input" placeholder="Enter message here">
+  						<button id="chat-submit" class="btn btn-default">Send</button>
 						</form>
 
 				</div>
@@ -102,7 +102,7 @@
 
 				<!-- User 1 -->
 				<div class="col-md-2 seats15" id="seat1">
-				    <div class="panel panel-default">
+				  <div class="panel panel-default">
 						<div class="panel-header">
 							<div class="panel-heading text-center" id="player1-name">
 							</div>
@@ -110,17 +110,17 @@
 
 						<div class="panel-body">
 					    <form>
-                            <input type="text" class="nameInput" id="player1-name-input" name="nameInput" placeholder="Name">
-                            <button class="btn btn-sm" id="player1-name-submit">Enter</button>
-                        </form>
-                        <p class="hidden" id="player1-points-p">Points: <span id="player1-points"></span></p>
+                <input type="text" class="nameInput" id="player1-name-input" name="nameInput" placeholder="Name">
+                <button class="btn btn-sm" id="player1-name-submit">Enter</button>
+              </form>
+              <p class="hidden" id="player1-points-p">Points: <span id="player1-points"></span></p>
 					  </div>
 					</div>
-                </div>
+        </div>
 							
 				<!-- User 2 -->
 				<div class="col-md-2">
-				    <div class="panel panel-default seats24" id="seat2">
+				  <div class="panel panel-default seats24" id="seat2">
 						<div class="panel-header">
 							<div class="panel-heading text-center" id="player2-name">
 							</div>
@@ -128,53 +128,53 @@
 
 						<div class="panel-body">
 					    <form>
-                            <input type="text" class="nameInput" id="player2-name-input" name="nameInput" placeholder="Name">
-                            <button class="btn btn-sm" id="player2-name-submit">Enter</button>
-                        </form>
-                        <p class="hidden" id="player2-points-p">Points: <span id="player2-points"></span></p>
+                <input type="text" class="nameInput" id="player2-name-input" name="nameInput" placeholder="Name">
+                <button class="btn btn-sm" id="player2-name-submit">Enter</button>
+              </form>
+              <p class="hidden" id="player2-points-p">Points: <span id="player2-points"></span></p>
 					  </div>
 					</div>
-                </div>
+        </div>
 
 				<!-- User 3 -->
-                <div class="col-md-2" id="seat3">
-				    <div class="panel panel-default">
-				    	<div class="panel-header">
-							<div class="panel-heading text-center" id="player3-name">
-							</div>
+        <div class="col-md-2" id="seat3">
+				  <div class="panel panel-default">
+				    <div class="panel-header">
+						  <div class="panel-heading text-center" id="player3-name">
+						  </div>
 						</div>
 
 						<div class="panel-body">
 					    <form>
-                            <input type="text" class="nameInput" id="player3-name-input" name="nameInput" placeholder="Name">
-                            <button class="btn btn-sm" id="player3-name-submit">Enter</button>
-                        </form>
-                        <p class="hidden" id="player3-points-p">Points: <span id="player3-points"></span></p>
+                <input type="text" class="nameInput" id="player3-name-input" name="nameInput" placeholder="Name">
+                <button class="btn btn-sm" id="player3-name-submit">Enter</button>
+              </form>
+              <p class="hidden" id="player3-points-p">Points: <span id="player3-points"></span></p>
 					  </div>
 					</div>
-                </div>
+        </div>
 
 				<!-- User 4 -->
-                <div class="col-md-2 seats24" id="seat4">
-				    <div class="panel panel-default">
-				    	<div class="panel-header">
+        <div class="col-md-2 seats24" id="seat4">
+				  <div class="panel panel-default">
+				    <div class="panel-header">
 							<div class="panel-heading text-center" id="player4-name">
 							</div>
 						</div>
 
 						<div class="panel-body">
 					    <form>
-                            <input type="text" class="nameInput" id="player4-name-input" name="nameInput" placeholder="Name">
-                            <button class="btn btn-sm" id="player4-name-submit">Enter</button>
-                        </form>
-                        <p class="hidden" id="player4-points-p">Points: <span id="player4-points"></span></p>
+                <input type="text" class="nameInput" id="player4-name-input" name="nameInput" placeholder="Name">
+                <button class="btn btn-sm" id="player4-name-submit">Enter</button>
+              </form>
+              <p class="hidden" id="player4-points-p">Points: <span id="player4-points"></span></p>
 					  </div>
 					</div>
-                </div>
+        </div>
 
 				<!-- User 5 -->
-                <div class="col-md-2 seats15" id="seat5">
-				    <div class="panel panel-default">
+        <div class="col-md-2 seats15" id="seat5">
+				  <div class="panel panel-default">
 						<div class="panel-header">
 							<div class="panel-heading text-center" id="player5-name">
 							</div>
@@ -182,13 +182,13 @@
 
 						<div class="panel-body">
 					    <form>
-                            <input type="text" class="nameInput" id="player5-name-input" name="nameInput" placeholder="Name">
-                            <button class="btn btn-sm" id="player5-name-submit">Enter</button>
-                        </form>
-                        <p class="hidden" id="player5-points-p">Points: <span id="player5-points"></span></p>
+                <input type="text" class="nameInput" id="player5-name-input" name="nameInput" placeholder="Name">
+                <button class="btn btn-sm" id="player5-name-submit">Enter</button>
+              </form>
+              <p class="hidden" id="player5-points-p">Points: <span id="player5-points"></span></p>
 					  </div>
 					</div>
-                </div>
+        </div>
 
 				<!-- Empty space -->
 				<div class="col-md-1">
@@ -201,11 +201,11 @@
 		<!-- Right Section -->
 		<div class="col-md-3">
 
-		<div id="hinter-div">
+		  <div id="hinter-div">
 
-			<div id="hinter-holder">
-				<h1 id="hinter-div-header">Hinter Chat</h1>
-			</div>
+    		<div id="hinter-holder">
+    			<h1 id="hinter-div-header">Hinter Chat</h1>
+    		</div>
 
 				<div id="hinter-chat">
 				</div>
