@@ -631,6 +631,7 @@ var main_game = {
         modal.find(".movie-poster").attr("src", movieImg);
         modal.modal("show");
     },
+    
     windowNum: function() {
       return this.windowSeat.number;
     },
