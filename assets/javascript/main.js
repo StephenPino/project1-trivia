@@ -1,38 +1,47 @@
 $(document).ready(function() {
 
-  //main_game.fbPlayerInit();
-  main_game.reset();
-
   $("#player1-name-submit").on("click", function(event) {
     event.preventDefault();
-    main_game.joinGame(1, $("#player1-name-input").val().trim());
+    var name=$("#player1-name-input").val().trim();
+    if(name!=="")
+      main_game.joinGame(1, name);
     $("#player1-name-input").val("");
   });
   $("#player2-name-submit").on("click", function(event) {
     event.preventDefault();
-    main_game.joinGame(2, $("#player2-name-input").val().trim());
+    var name=$("#player2-name-input").val().trim();
+    if(name!=="")
+      main_game.joinGame(2, name);
     $("#player2-name-input").val("");
   });
   $("#player3-name-submit").on("click", function(event) {
     event.preventDefault();
-    main_game.joinGame(3, $("#player3-name-input").val().trim());
+    var name=$("#player3-name-input").val().trim();
+    if(name!=="")
+      main_game.joinGame(3, name);
     $("#player3-name-input").val("");
   });
   $("#player4-name-submit").on("click", function(event) {
     event.preventDefault();
-    main_game.joinGame(4, $("#player4-name-input").val().trim());
+    var name=$("#player4-name-input").val().trim();
+    if(name!=="")
+      main_game.joinGame(4, name);
     $("#player4-name-input").val("");
   });
   $("#player5-name-submit").on("click", function(event) {
     event.preventDefault();
-    main_game.joinGame(5, $("#player5-name-input").val().trim());
+    var name=$("#player5-name-input").val().trim();
+    if(name!=="")
+      main_game.joinGame(5, name);
     $("#player5-name-input").val("");
   });
 
   $("#chat-submit").on("click", function(event) {
     console.log();
     event.preventDefault();
-    main_game.fbSendChatMessage($("#chat-input").val().trim());
+    var msg=$("#chat-input").val().trim();
+    if(msg!=="")
+      main_game.fbSendChatMessage(msg);
     $("#chat-input").val("");
   });
 
@@ -48,9 +57,9 @@ $(document).ready(function() {
 
 
   $("#player-ready").on("click", function() {
-  var ready=main_game.windowReady();
-  var num=main_game.windowNum();
-  buttonReadyState(ready, num);
+    var ready=main_game.windowReady();
+    var num=main_game.windowNum();
+    buttonReadyState(ready, num);
   });
 
   $("#show-plot").on("click", function() {
@@ -61,30 +70,40 @@ $(document).ready(function() {
   database.ref("player/1").on("value", function(snapshot) {
     if (snapshot.exists())
       main_game.fbUpdateSeat(snapshot.key, snapshot.val());
+    else
+      main_game.fbUpdateSeat(snapshot.key, null);
   }, function(errorObject) {
     console.log("Errors handled: " + errObject.code);
   });
   database.ref("player/2").on("value", function(snapshot) {
     if (snapshot.exists())
       main_game.fbUpdateSeat(snapshot.key, snapshot.val());
+    else
+      main_game.fbUpdateSeat(snapshot.key, null);
   }, function(errorObject) {
     console.log("Errors handled: " + errObject.code);
   });
   database.ref("player/3").on("value", function(snapshot) {
     if (snapshot.exists())
       main_game.fbUpdateSeat(snapshot.key, snapshot.val());
+    else
+      main_game.fbUpdateSeat(snapshot.key, null);
   }, function(errorObject) {
     console.log("Errors handled: " + errObject.code);
   });
   database.ref("player/4").on("value", function(snapshot) {
     if (snapshot.exists())
       main_game.fbUpdateSeat(snapshot.key, snapshot.val());
+    else
+      main_game.fbUpdateSeat(snapshot.key, null);
   }, function(errorObject) {
     console.log("Errors handled: " + errObject.code);
   });
   database.ref("player/5").on("value", function(snapshot) {
     if (snapshot.exists())
       main_game.fbUpdateSeat(snapshot.key, snapshot.val());
+    else
+      main_game.fbUpdateSeat(snapshot.key, null);
   }, function(errorObject) {
     console.log("Errors handled: " + errObject.code);
   });
@@ -113,4 +132,9 @@ $(document).ready(function() {
   }, function(errorObject) {
     console.log("Errors handled: " + errObject.code);
   });
+
+
+  //main_game.fbPlayerInit();
+  main_game.reset();
+
 });
