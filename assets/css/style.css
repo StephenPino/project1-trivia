@@ -49,7 +49,7 @@ p {
 	padding-bottom: 50px;
 }
 
-#movie-poster {
+.movie-poster {
 	height: 500px;
 	width: 400px;
 }
@@ -141,7 +141,6 @@ p {
 	padding-top: 5px;
 	padding-bottom: 5px;
 	
-
 }
 
 #movie-to-blanks-header {
@@ -242,5 +241,13 @@ p {
 }
 
 .panel {
-	background-color: #5F8399;
+	background-color: #E7EEF2;
+}
+
+.panel-header-ready {
+	background-color: #37C740;
+}
+
+.panel-header-unready {
+	background-color: #C90018;
 }

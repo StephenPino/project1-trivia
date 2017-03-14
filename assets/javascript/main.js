@@ -49,7 +49,8 @@ $(document).ready(function(){
 
   $("#player-ready").on("click", function() {
     var ready=main_game.windowReady();
-    buttonReadyState(ready);
+    var num=main_game.windowNum();
+    buttonReadyState(ready, num);
   });
 
   $("#show-plot").on("click", function() {

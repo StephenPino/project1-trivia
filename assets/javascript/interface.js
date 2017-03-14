@@ -12,14 +12,16 @@ function showNameDisplay(num){
 }
 
 
-function buttonReadyState(ready){
+function buttonReadyState(ready, num){
 	if(!ready) {
 		$("#player-ready").html("Ready?");
-		$(this).attr("data-state", "unready");
+		$("#seat" + num).find(".panel-header").addClass("panel-header-unready");
+		$("#seat" + num).find(".panel-header").removeClass("panel-header-ready");
 	}
 	else {
 		$("#player-ready").html("Unready?");
-		$(this).attr("data-state", "ready");
+		$("#seat" + num).find(".panel-header").addClass("panel-header-ready");
+		$("#seat" + num).find(".panel-header").removeClass("panel-header-unready");
 	}
 }
 

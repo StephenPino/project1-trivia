@@ -235,6 +235,10 @@ var main_game = {
     return this.windowSeat.ready;
   },
 
+  windowNum: function() {
+    return this.windowSeat.number;
+  },
+
   allSeatsJoinedReady: function() {
     var numReady=0;
     var allReady=true;
