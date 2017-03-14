@@ -36,5 +36,6 @@ function Seat(num=0, name="Empty", joined=false, points=0, ready=false){
   this.jqDisplayAll = function() {
     this.jqDisplayName();
     this.jqDisplayPoints();
+    buttonReadyState(this.ready, this.number);
   };
 }
