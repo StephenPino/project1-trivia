@@ -308,11 +308,11 @@ var main_game = {
           break;
         case gameStates.roundOver:
           //this.displayRoundOver();
-          this.gameStartTimers(3, this.hinter, gameStates.readyToStartRound);
+          this.gameStartTimers(3, 0, gameStates.readyToStartRound);
           break;
         case gameStates.gameOver:
           this.displayGameOver();
-          this.gameStartTimers(3, this.hinter, gameStates.waitingForPlayers);
+          this.gameStartTimers(3, 0, gameStates.waitingForPlayers);
           break;
       }
     }
@@ -611,7 +611,7 @@ var main_game = {
   //only the first window to submit the correct answer will call this function
   checkAnswer: function(str, prob=.8) {
     var tempFuzzArray=this.fuzzyCompare.get(str.toLowerCase());
-    if(tempFuzzArray.length>0)
+    if(tempFuzzArray!==null && tempFuzzArray.length>0)
       if(tempFuzzArray[0][0] > prob){
         this.answerer=this.windowSeat.number;
         this.fbSetState(this.answerer, gameStates.hintAnswered);

@@ -30,6 +30,7 @@ $(document).ready(function(){
   });
 
   $("#chat-submit").on("click", function(event){
+    console.log();
     event.preventDefault();
     main_game.fbSendChatMessage($("#chat-input").val().trim());
     $("#chat-input").val("");
@@ -43,6 +44,16 @@ $(document).ready(function(){
       main_game.getHintAnswer();
     else if(action==="set")
       main_game.setAnswer(movieTitle);
+  });
+
+
+  $("#player-ready").on("click", function() {
+    var ready=main_game.windowReady();
+    buttonReadyState(ready);
+  });
+
+  $("#show-plot").on("click", function() {
+    $("#modalMoviePlot").modal("show");
   });
 
 

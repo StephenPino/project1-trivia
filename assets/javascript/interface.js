@@ -23,16 +23,3 @@ function buttonReadyState(ready){
 	}
 }
 
-$(document).ready(function(){
-
-	// Ready / Unready Status
-	$("#player-ready").on("click", function() {
-		var ready=main_game.windowReady();
-		buttonReadyState(ready);
-	});
-
-	$("#show-plot").on("click", function() {
-		$("#modalMoviePlot").modal("show");
-	});
-
-});

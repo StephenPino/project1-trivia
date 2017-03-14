@@ -1,7 +1,7 @@
 function randomDate(start, end) {
-        var date = +start + Math.floor(Math.random() * (end - start));
-        return date;
-    }
+    var date = +start + Math.floor(Math.random() * (end - start));
+    return date;
+}
 
 function getMovieDetails(movieYear) {
     // Constructing a URL to search 
@@ -27,34 +27,34 @@ function getMovieDetails(movieYear) {
             //console log for testing
             //console.log("title " + movieTitle);
             //console.log("poster" + movieImg);
-            getMoviePlot(movieTitle, results[x].release_date.substring(0,4), false, false);
+            getMoviePlot(movieTitle, results[x].release_date.substring(0, 4), false, true);
             main_game.jqReturnAnswer(movieTitle);
         });
 }
 
 function getMoviePlot(movieTitle, year, useFilm, useYear) {
     var queryTitle = movieTitle; //+ "_(film)";
-    if(useYear)
-        queryTitle+=" ("+year+" film)";
-    else if(useFilm)
-        queryTitle+=" (film)";
+    if (useYear)
+        queryTitle += " (" + year + " film)";
+    else if (useFilm)
+        queryTitle += " (film)";
     console.log(queryTitle);
     wtf_wikipedia.from_api(queryTitle, "en", function(markup) {
-        moviePlot ="";
+        moviePlot = "";
         var object = wtf_wikipedia.parse(markup);
-        
+
         //console.log(object);
-        if((object.text===undefined || object.text.get("Plot")===undefined) && useFilm===false) {
+        if ((object.text === undefined || object.text.get("Plot") === undefined) && useYear === true) {
             getMoviePlot(movieTitle, year, true, false);
-        }
-        else if((object.text===undefined || object.text.get("Plot")===undefined) && useFilm===true && useYear===false) {
-            getMoviePlot(movieTitle, year, true, true);
-        }
-        else {
-            var plotObject =object.text.get("Plot");
+        } else if ((object.text === undefined || object.text.get("Plot") === undefined) && useFilm === true && useYear === false) {
+            getMoviePlot(movieTitle, year, false, false);
+        } else if ((object.text === undefined || object.text.get("Plot") === undefined) && useFilm === false && useYear === false) {
+            moviePlot = "No Wikipedia Entry";
+        } else {
+            var plotObject = object.text.get("Plot");
             for (var i = 0; i < plotObject.length; i++) {
                 //console.log(object.text.get("Plot")[i].text);
-                moviePlot = moviePlot +"  "+ plotObject[i].text;
+                moviePlot = moviePlot + "  " + plotObject[i].text;
             }
         }
     });
