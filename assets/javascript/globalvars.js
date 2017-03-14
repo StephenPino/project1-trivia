@@ -43,3 +43,4 @@ var movieTitle = "";
 var movieImg = "";
 var movieYear = null;
 var movieSummary = "";
+var movieImg = "";

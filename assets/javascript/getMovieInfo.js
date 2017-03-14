@@ -3,9 +3,10 @@ function randomDate(start, end) {
     return date;
 }
 
-function getMovieDetails(movieYear) {
+function getMovieDetails(mYear) {
     // Constructing a URL to search 
-    var year = movieYear;
+    var year = mYear;
+    movieYear = mYear;
     var x = 0;
     var queryURL = "https://api.themoviedb.org/3/discover/movie?api_key=1c916b5ee7a77ed6aa84e46c17622f72&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_year=" + year;
     //Performing our AJAX GET request
@@ -23,7 +24,8 @@ function getMovieDetails(movieYear) {
             //console.log("Random number " + x);
             movieTitle = (results[x].title);
             movieImg = (results[x].poster_path);
-            movieImg = "//https://image.tmdb.org/t/p/w500" + movieImg;
+            movieImg = "https://image.tmdb.org/t/p/w500" + movieImg;
+
             //console log for testing
             //console.log("title " + movieTitle);
             //console.log("poster" + movieImg);
