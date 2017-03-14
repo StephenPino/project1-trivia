@@ -25,6 +25,7 @@ function getMovieDetails(mYear) {
       movieTitle = (results[x].title);
       movieImg = (results[x].poster_path);
       movieImg = "https://image.tmdb.org/t/p/w500" + movieImg;
+      movieSummary = results[x].overview;
 
       //console log for testing
       //console.log("title " + movieTitle);
@@ -36,6 +37,7 @@ function getMovieDetails(mYear) {
 
 function getMoviePlot(movieTitle, year, useFilm, useYear) {
   var queryTitle = movieTitle; //+ "_(film)";
+  moviePlot = "";
   if (useYear)
     queryTitle += " (" + year + " film)";
   else if (useFilm)
@@ -57,13 +59,14 @@ function getMoviePlot(movieTitle, year, useFilm, useYear) {
     data: config,
     xhrFields: { withCredentials: true },
     success: function(response) { 
+      //console.log("Wikipedia response");
       //console.log(response);
       var pages = response.query.pages
       var keys = Object.keys(pages);
       //console.log(keys);
       //if (keys[0]==="-1", then page was not found
-      //if the next condition is true, then the reponse is a redirect and not the actual page we want
-      if(keys[0]==="-1" || pages[keys[0]].revisions[0]['*'][0]==='#'){
+      //if the next condition is true, then the reponse is a redirect and not the actual page we want, so query redirect for the Movie title
+      if(keys[0]==="-1"){
         if(useYear)
           getMoviePlot(movieTitle, year, true, false);
         else if(!useYear && useFilm)
@@ -71,14 +74,34 @@ function getMoviePlot(movieTitle, year, useFilm, useYear) {
         else
           moviePlot = "No Wikipedia Entry";
       }
+      else if(pages[keys[0]].revisions[0]['*'][0]==='#') {
+        var redirect = pages[keys[0]].revisions[0]['*'];
+        //console.log("Redirection entry in wiki response");
+        //console.log(redirect);
+        //console.log(redirect.substring(12,redirect.length-2));
+        getMoviePlot(redirect.substring(12,redirect.indexOf(']')), false, false);
+      }
       else {
         var wikiText= pages[keys[0]].revisions[0]['*'];
         var object = wtf_wikipedia.parse(wikiText);
+        //console.log("Wikitext Parse object");
         //console.log(object);
         var plotObject = object.text.get("Plot");
+        //console.log("Plot entry in wikiText parse");
         //console.log(plotObject);
-        for (var i = 0; i < plotObject.length; i++) {
-          moviePlot = moviePlot + "  " + plotObject[i].text;
+        if(plotObject===undefined){
+          plotObject = object.text.get("Plot summary");
+          //console.log("Plot Summary entry in wikiText parse");
+          //console.log(plotObject);
+          if(plotObject===undefined)
+            moviePlot = "No Wikipedia Plot Entry";   
+        }
+        else {
+          for (var i = 0; i < plotObject.length; i++) {
+            moviePlot = moviePlot + "  " + plotObject[i].text;
+            if(i%4===0)
+              moviePlot+="<br/><br/>";
+          }
         }
 
       }

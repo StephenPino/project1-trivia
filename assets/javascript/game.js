@@ -598,7 +598,7 @@ var main_game = {
   jqSetMoviePlotModal: function() {
     var myModal = $("#modalMoviePlot");
     myModal.find(".modal-movie").text(movieTitle);
-    myModal.find(".modal-plot").text(moviePlot);
+    myModal.find(".modal-plot").html(moviePlot);
   },
 
   //only the hinter is going to call this function
