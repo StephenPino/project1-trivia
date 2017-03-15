@@ -278,6 +278,7 @@ var main_game = {
             } else {
               console.log("Round Starting!");
               this.jqGameStatus(this.seats[this.hinter].name+" is the next Hinter!", "Get ready!");
+              console.log(this.hinter);
               this.gameStartTimers(3, this.hinter, gameStates.waitingForGetAnswer);
             }
           }
