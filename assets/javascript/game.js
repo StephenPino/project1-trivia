@@ -352,7 +352,7 @@ var main_game = {
     //just as a precaution;
     console.log("Timer for: "+state);
     clearInterval(this.intervalId);
-    clearTimeout(this.timeoutlId);
+    clearTimeout(this.timeoutId);
 
     this.timeLeft = time;
     this.displayTimerCount();
