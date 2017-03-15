@@ -261,7 +261,7 @@ var main_game = {
           break;
         case gameStates.readyToStartGame:
           this.startGame(2);
-          this.jqGameStatus("Game Start Coundown Started!", "The Game will play for "+this.round" rounds!<br><br>Click the Ready button again to stop the countdown.");
+          this.jqGameStatus("Game Start Coundown Started!", "The Game will play for "+this.round+" rounds!<br><br>Click the Ready button again to stop the countdown.");
           this.gameStartTimers(3, 0, gameStates.readyToStartRound);
           break;
         case gameStates.readyToStartRound:
