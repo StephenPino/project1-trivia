@@ -350,6 +350,7 @@ var main_game = {
 
   gameStartTimers: function(time, seat = 0, state = gameStates.waitingForPlayers) {
     //just as a precaution;
+    console.log("Timer for: "+state);
     clearInterval(this.intervalId);
     clearTimeout(this.timeoutlId);
 
