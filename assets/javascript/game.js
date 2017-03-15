@@ -38,9 +38,9 @@ var main_game = {
     this.windowSeat = this.seats[0];
   },
 
-  fbPlayerInit: function() {
+  fbReset: function() {
     for (var i = 1; i < this.seats.length; ++i)
-      this.seats[i].fbSetSeat();
+      this.seats[i].fbReset();
 
     this.gameRef.set({ gameState: gameStates.waitingForPlayers, hinter: 0, hint: "", answerer: 0, answer: "", poster: "", year: "" });
 
@@ -252,14 +252,16 @@ var main_game = {
   checkGameState: function() {
     if (this.lastGameState !== this.gameState) {
       this.lastGameState = this.gameState;
+      //this.jqHideAllModals();
 
       switch (this.gameState) {
         case gameStates.waitingForPlayers:
           this.gameStopTimers();
-          this.jqGameText1("Waiting for players"); //Wiatin for more than 2 players to sit and hit ready.
+          this.jqGameText("Waiting for players", ""); //Wiatin for more than 2 players to sit and hit ready.
           break;
         case gameStates.readyToStartGame:
-          this.startGame(3);
+          this.jqGameStatus("Game Start Coundown Started!", "The Game will play for 3 rounds!<br><br>Click the Ready button again to stop the countdown.");
+          this.startGame(2);
           this.gameStartTimers(3, 0, gameStates.readyToStartRound);
           break;
         case gameStates.readyToStartRound:
@@ -270,15 +272,19 @@ var main_game = {
           } else {
             var roundOver = this.startRound();
             if (roundOver) {
-              console.log("Round OVer");
+              console.log("Round Over");
+              //this.jqGameStatus(this.seats[this.hinter].name+" is the next Hinter!", "Get ready!");
               this.gameStartTimers(3, 0, gameStates.roundOver);
             } else {
               console.log("Round Starting!");
+              this.jqGameStatus(this.seats[this.hinter].name+" is the next Hinter!", "Get ready!");
               this.gameStartTimers(3, this.hinter, gameStates.waitingForGetAnswer);
             }
           }
           break;
         case gameStates.waitingForGetAnswer:
+          this.jqHideAllModals();
+          this.jqGameText("Waiting for the Hinter to select a movie", "Please standby....");
           this.getHintAnswer();
           break;
         case gameStates.waitingForHint:
@@ -292,25 +298,30 @@ var main_game = {
           this.gameStartTimers(60, this.hinter, gameStates.hintUnanswered);
           break;
         case gameStates.hintAnswered:
+          this.jqHideAllModals();
           this.gameStopTimers();
           this.clearHChat();
-          this.displayResults();
+          this.displayHintAnswered();
           this.calculatePoints();
           this.jqDisplayAnswer(true);
-          this.gameStartTimers(3, this.hinter, gameStates.turnOver);
+          this.gameStartTimers(5, this.hinter, gameStates.turnOver);
           break;
         case gameStates.hintUnanswered:
+          this.jqHideAllModals();
           this.clearHChat();
           this.displayNotAnswered();
           this.jqDisplayAnswer(false);
-          this.gameStartTimers(3, this.hinter, gameStates.turnOver);
+          this.gameStartTimers(5, this.hinter, gameStates.turnOver);
           break;
         case gameStates.turnOver:
-          this.fbSetState(0, gameStates.readyToStartRound);
+          this.jqHideHiddenAnswer();
+          this.jqHideAllModals();
+          this.gameStartTimers(1, 0, gameStates.readyToStartRound);
           break;
         case gameStates.roundOver:
           //this.displayRoundOver();
           --this.round;
+          this.jqGameStatus("Next Round is starting!", this.round+" round\\s left!");
           this.gameStartTimers(3, 0, gameStates.readyToStartRound);
           break;
         case gameStates.gameOver:
@@ -336,7 +347,7 @@ var main_game = {
     }
   },
 
-  gameStartTimers(time, seat = 0, state = gameStates.waitingForPlayers) {
+  gameStartTimers: function(time, seat = 0, state = gameStates.waitingForPlayers) {
     //just as a precaution;
     clearInterval(this.intervalId);
     clearTimeout(this.timeoutlId);
@@ -354,7 +365,7 @@ var main_game = {
   },
 
   isGameOver: function() {
-    if (this.round === 1)
+    if (this.round === 0)
       return true;
     else
       return false;
@@ -362,7 +373,13 @@ var main_game = {
 
   startGame: function(rounds) {
     this.round = rounds;
-    this.jqGameText1("Countdown to game start has begun!");
+    this.jqGameText("Game is starting!", "");
+    for(var i=1; i<this.seats.length; ++i){
+      this.seats[i].points=0;
+      this.seats[i].jqDisplayAll();
+      if(this.windowSeat.number===i)
+        this.seats[i].fbSetSeat();
+    }
   },
 
   startRound: function() {
@@ -403,26 +420,31 @@ var main_game = {
   },
 
   displayGetHint: function() {
-    this.jqGameText1("The Hinter is " + this.seats[this.hinter].name);
     if (this.hinter === this.windowSeat.number) {
       this.jqGameText1("The movie is: " + this.answer);
-      this.jqGameText2("Please enter the first hint in the chat box");
+      this.jqGameText2("Please enter in your first hint");
+      this.jqGameStatus("The movie is: " + this.answer, "Please enter in your first hint in the Chat Box.");
     } else {
+      this.jqGameStatus("The first hint shall be given shortly!", "The timer starts as soon as the Hinter gives his first hint!<BR><BR>Get ready to start them guesses!");
+      this.jqGameText1("The Hinter is " + this.seats[this.hinter].name);
       this.jqGameText2("Waiting on Hinter to enter in a hint");
     }
   },
 
   displayHint: function() {
-    this.jqGameText1("The Hint is: " + this.hint);
     if (this.hinter === this.windowSeat.number) {
-      this.jqGameText2("You may offer more hints if you want");
+      //this.jqGameStatus("More Hints === More Correct Answers!", "Please enter in more hints in the chat box, they will be displayed in the Hinter Box for all to see!  <br><br>Remember, you get points too if someone correclty guesses the movie!");
+      this.jqGameText1("Enter hints in the chat box!");
+      this.jqGameText2("Remember: Correct Answers = points!");
     } else {
-      this.jqGameText2("The chat box is also used as your submit answer box");
+       //this.jqGameStatus("Turn Started!", "Start trying to guess the movie!<br><br>Use the Hidden Answer Box™ and the Hinter Chat for help!");
+      this.jqGameText1("Timer has started! START ANSWERING!!!");
+      this.jqGameText2("The Chat Box is also your Answer Submit Box!");
     }
   },
 
   maskUnhide: function() {
-    this.jqDisplayHiddenAnswer();
+    this.jqDisplayHiddenAnswer(false);
 
     var tempSeat = this.getTempHost();
     if (this.windowSeat.number === tempSeat.number) {
@@ -441,7 +463,8 @@ var main_game = {
     }, revealTime * 1000);
   },
 
-  displayResults: function() {
+  displayHintAnswered: function() {
+    this.jqDisplayHiddenAnswer(true);
     this.jqGameText1(this.seats[this.answerer].name + " has answered the hint!");
     this.jqGameText2("The answer was: " + this.answer);
   },
@@ -449,10 +472,10 @@ var main_game = {
   calculatePoints: function() {
     if (this.answerer !== 0) {
       if (this.windowSeat.number === this.hinter) {
-        this.windowSeat.points += 1;
+        this.windowSeat.points += 2;
         this.windowSeat.fbSetSeat();
       } else if (this.windowSeat.number === this.answerer) {
-        this.windowSeat.points += 3;
+        this.windowSeat.points += 1;
         this.windowSeat.fbSetSeat();
       }
     }
@@ -460,6 +483,7 @@ var main_game = {
   },
 
   displayNotAnswered: function() {
+    this.jqDisplayHiddenAnswer(true);
     this.jqGameText1("Time over!  No one gets any points!");
     this.jqGameText2("The answer was: " + this.answer);
   },
@@ -500,15 +524,19 @@ var main_game = {
     $("#timer").text(this.timeLeft);
   },
 
-  jqDisplayHiddenAnswer: function() {
+  jqDisplayHiddenAnswer: function(reveal=false) {
     var displayStr = "";
     for (var i = 0; i < this.answer.length; ++i)
-      if (this.answerMask[i])
+      if (this.answerMask[i] || reveal)
         displayStr += this.answer[i] + '&nbsp;';
       else
         displayStr += "_&nbsp;";
 
     $("#movie-to-guess").html(displayStr);
+  },
+
+  jqHideHiddenAnswer: function() {
+    $("#movie-to-guess").html("");
   },
 
   jqDisplayChatMessage: function(message) {
@@ -536,8 +564,9 @@ var main_game = {
 
   displayGameOver: function() {
     var winStr = this.getWinnerStr();
+    this.jqGameStatus(winStr, "Congratulate them! Or not.  Or whatever.  I'm not your mother.");
     this.jqGameText1(winStr);
-    this.jqGameText2("Waiting for all people to be ready to start again");
+    this.jqGameText2("Ready up to start again!");
   },
 
   getWinnerStr: function() {
@@ -584,15 +613,21 @@ var main_game = {
     this.movieYear = movieYear;
     this.mask = [];
     for (var i = 0; i < str.length; ++i)
-      if (str[i] === ' ')
-        this.mask[i] = true;
-      else
-        this.mask[i] = false;
+        this.mask[i] = this.charIsNotAlphaNumeric(str.charCodeAt(i));
 
       //console.log(this.mask);
     this.jqSetMoviePlotModal();
     this.fbSetMask(this.hinter, JSON.stringify(this.mask));
     this.fbSetState(this.hinter, gameStates.waitingForHint);
+  },
+
+  charIsNotAlphaNumeric: function(code) {
+      if (!(code > 47 && code < 58) && // numeric (0-9)
+          !(code > 64 && code < 91) && // upper alpha (A-Z)
+          !(code > 96 && code < 123)) { // lower alpha (a-z)
+        return true;
+      }
+    return false;
   },
 
   jqSetMoviePlotModal: function() {
@@ -624,18 +659,37 @@ var main_game = {
   jqGameText2: function(str) {
     $("#game-text-2").text(str);
   },
+  jqGameText: function(str1, str2) {
+    this.jqGameText1(str1);
+    this.jqGameText2(str2);
+  },
 
   jqDisplayAnswer: function(isAnswered) {
     var modal = $("#modalMoviePoster");
     if (isAnswered) {
       modal.find(".movie-guesser").text(this.seats[this.answerer].name);
+      modal.find(".modal-points").text(this.seats[this.answerer].name+" gets 1 points!  "+ this.seats[this.hinter].name+" gets 2 points!");
     } else {
       modal.find(".movie-guesser").text("No one");
+      modal.find(".modal-points").text("No one get's any points.  :(");
     }
     modal.find(".movie-title").text(this.answer);
     modal.find(".movie-date").text(this.movieYear);
     modal.find(".movie-poster").attr("src", this.posterUrl);
     modal.modal("show");
+  },
+
+  jqGameStatus: function(head, body) {
+    var modal = $("#modalGameStatus");
+    modal.find(".status-head").html(head);
+    modal.find(".status-body").html(body);
+    modal.modal("show");
+  },
+
+  jqHideAllModals: function() {
+    $(".modal").modal("hide");
+    $('body').removeClass('modal-open');
+    $('.modal-backdrop').remove();
   },
   
   windowNum: function() {

@@ -16,6 +16,9 @@ function Seat(num=0, name="Empty", joined=false, points=0, ready=false){
   this.sendAnswer = function(message){
     //main_game.checkAnswer(message, this.number);
   };
+  this.fbReset = function() {
+    this.ref.set({name: "Empty", joined: false, ready: false, points: 0});
+  };
   this.fbSetSeat = function(){
     this.ref.set({name: this.name, joined: this.joined, ready: this.ready, points: this.points});
   };
