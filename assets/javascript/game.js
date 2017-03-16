@@ -191,11 +191,11 @@ var main_game = {
 
   joinGame: function(num, name) {
     if (this.seats[num].joined) {
-      alert("This seat is taken");
+      this.jqGameStatus("Pick an empty seat!", "This Seat is taken! No sitting in other people's laps.");
     } else if (this.windowSeat.number !== 0)
-      alert("You already are in a seat!");
+      this.jqGameStatus("You picked a seat already!", "Be nice and share; no hogging all the seats!");
     else if (this.gameState !== gameStates.waitingForPlayers)
-      alert("Can't join in the middle of the game");
+      this.jqGameStatus("Game In Progress", "Sorry, but you can't join in the middle of a game.  Please wait until it is over to join in the fun.");
     else {
       this.seats[num] = new Seat(num, name, true);
       this.windowSeat = this.seats[num];
