@@ -257,3 +257,18 @@ p {
 
  /* mdodals*/
 
+.curtaindiv{position: fixed;
+  z-index: 10;
+}
+.curtainimage{height: 100vh;
+  width:100vw;
+
+}
+
+.curtainLeft{
+  transform: translate3d(-50%, 0, 0);
+}
+
+.curtainRight{
+    transform: translate3d(50%, 0, 0);
+}
