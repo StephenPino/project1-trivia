@@ -32,23 +32,30 @@ var main_game = {
   maskRefDisc: null,
 
 
-
+  //Semi useful initialize funciton;
   reset: function() {
     this.windowSeat = this.seats[0];
   },
 
+  //Cleans up Firebase to good inital status
+  //used as a helper for cleaning up incase of unforseen coding errors or connection stuffs.
   fbReset: function() {
     for (var i = 1; i < this.seats.length; ++i)
       this.seats[i].fbReset();
 
     this.gameRef.set({ gameState: gameStates.waitingForPlayers, hinter: 0, hint: "", answerer: 0, answer: "", poster: "", year: "" });
+    this.maskRef.remove();
+    this.chatRef.remove();
+    this.hChatRef.remove();
 
   },
 
+  //updates firebase("game") with current information
   fbSetGame: function() {
     this.gameRef.set({ gameState: this.gameState, hint: this.hint, hinter: this.hinter, answer: this.answer, answerer: this.answerer, poster: this.posterUrl, year: this.movieYear});
   },
 
+  //updates firebase("mask") with current answer display mask
   fbUpdateMask: function(val) {
     //console.log(val.str);
     this.answerMask = JSON.parse(val.str);
@@ -56,6 +63,7 @@ var main_game = {
       this.jqDisplayHiddenAnswer();
   },
 
+  //Called on "value" updates of firebase("game"), updates local to match firebase
   fbUpdateGame: function(val) {
     this.gameState = val.gameState;
     this.hinter = val.hinter;
@@ -67,6 +75,9 @@ var main_game = {
     this.checkGameState();
   },
 
+  //Called on "value" updates of firebase("player/x"), updates local to match firebase
+  //Also checks to see if a player has left in the middle of the game and displays info
+  //If this window player is the last connected, then have this player clean up firebase when player disconnects
   fbUpdateSeat: function(num, val) {
     var tempSeat = this.seats[num];
 
@@ -92,6 +103,7 @@ var main_game = {
       this.fbCancelDisconnect();
   },
 
+  //Helper function, does stuff when another player leaves the active game.
   playerLeftGame: function(name) {
     this.gameStopTimers();
     this.jqHideAllModals();
@@ -104,6 +116,8 @@ var main_game = {
     this.jqGameStatus("A player has left the game!", "Jeers for "+name+" next time you see them for spoiling the fun!");
   },
 
+  //Helper function, get's a connected  player to act as the temp host
+  //using this method because we don't have a central server to run the game code
   getTempHost: function() {
     for (var i = 1; i < this.seats.length; ++i) {
       if (this.seats[i].joined)
@@ -112,6 +126,7 @@ var main_game = {
     return -1;
   },
 
+  //returns the seat of the window player if they are the last connected, 0 otherwise
   getLastConnected: function() {
     var result = true;
     var num = 0;
@@ -125,6 +140,7 @@ var main_game = {
     return num;
   },
 
+  //Attaches onDisconnect's to this window to clean up firebase.  Called when this is the only player connected
   fbDisconnectAttach: function(num) {
     if (num === this.windowSeat.number) {
       this.hChatRefDisc = this.hChatRef.onDisconnect();
@@ -136,6 +152,7 @@ var main_game = {
     }
   },
 
+  //Cancels this windows onDisconnect's to Firebase, called when there is more than one player connected
   fbCancelDisconnect: function() {
     if (this.hChatRefDisc !== null) {
       this.hChatRefDisc.cancel();
@@ -151,12 +168,16 @@ var main_game = {
     }
   },
 
+  //Get's a temp host to set Firebase with current game stats
+  //We do this to ensure that firebase is only updated by only 1 player at a time, to prevent all sorts of bugs.
   fbTempHostSetGame: function() {
     var tempSeat = this.getTempHost();
     if (tempSeat.number === this.windowSeat.number)
       this.fbSetGame();
   },
 
+  //If num is 0, get temp host, otherwise use that window that is in the player seat to change the gamestate to firebase.
+  //This is so only one player can change the gamestate at any one time.
   fbSetState: function(num, state) {
     //console.log("fb Set State "+num+" "+state);
     var tempSeat = null;
@@ -171,6 +192,9 @@ var main_game = {
     }
   },
 
+  //If num is 0, get temp host, otherwise use that window that is in the player seat to change the mask array in firebase
+  //This is so only one player can change the answer Mask at any one time.
+  //Usually the hinter number is given
   fbSetMask: function(num, string) {
     //console.log("fb Set Mask "+num);
     var tempSeat = null;
@@ -185,6 +209,8 @@ var main_game = {
     }
   },
 
+  //If num is 0, get temp host, otherwise use that window that is in the player seat to push a mesage to firebase("chat")
+  //This is so only one player pushes the new message.
   fbSendChat: function(num, string) {
     //console.log("fb Send Chat "+num);
     var tempSeat = null;
@@ -199,6 +225,8 @@ var main_game = {
     }
   },
 
+  //Called when the player tries to join a seat by entering in their name in the input field
+  //If successful, this window seat is now the seat the player joined.
   joinGame: function(num, name) {
     if (this.seats[num].joined) {
       this.jqGameStatus("Pick an empty seat!", "This Seat is taken! No sitting in other people's laps.");
@@ -218,6 +246,9 @@ var main_game = {
     }
   },
 
+  //Called when the ready button is pressed
+  //Only does stuff if the window has an active player and the gameState is waitingForPlayers or ReadyToStartGame
+  //Returns this window's ready state (true/false)
   windowReady: function() {
     if (this.windowState !== windowStates.spectator) {
       if (this.gameState === gameStates.waitingForPlayers || this.gameState === gameStates.readyToStartGame) {
@@ -251,6 +282,7 @@ var main_game = {
     return this.windowSeat.ready;
   },
 
+  //Returns true if all the players in a seat are ready and there are more than two of them, false otherwise
   allSeatsJoinedReady: function() {
     var numReady = 0;
     var allReady = true;
@@ -263,6 +295,12 @@ var main_game = {
     return allReady && (numReady > 1);
   },
 
+  //Heart of the Game logic
+  //This is only called when fbUpdateGame get's an update via firebase
+  //Only runs new calls on edge changes, just in case firebase is updated more than once with the same gameState
+  //checks the gameState against the gameStates enum to see which case should be run.
+  //Since this is only called when firebase updates, and we are striving that only one window will update firebae at any given time, each window should have the same gamestate at all times
+  //For most gameStates, we set a timeroout to go to the next gamestate, and use a timer to display how long to the next state change.
   checkGameState: function() {
     if (this.lastGameState !== this.gameState) {
       this.lastGameState = this.gameState;
@@ -347,6 +385,7 @@ var main_game = {
     }
   },
 
+  //Cancels all timeout's and intervals that may be runnning, set's their ID variables to null
   gameStopTimers: function() {
     if (this.intervalId !== null) {
       clearInterval(this.intervalId);
@@ -362,6 +401,8 @@ var main_game = {
     }
   },
 
+  //Input, timer in seconds, seat to update firebasewith new state, and the new state to change to
+  //Set's an interval per second that countsdown, and a timeout to runs when time ends to change the gameState
   gameStartTimers: function(time, seat = 0, state = gameStates.waitingForPlayers) {
     //just as a precaution;
     console.log("Timer for: "+state);
@@ -380,6 +421,7 @@ var main_game = {
     }, time * 1000);
   },
 
+  //Checks to see if the game is over, game is over when round===0
   isGameOver: function() {
     if (this.round === 0)
       return true;
@@ -387,6 +429,8 @@ var main_game = {
       return false;
   },
 
+  //Helper function, does multiple stuff when gameState is reaadyToStartGame
+  //takes an number of rounds as a paramater and sets the game length to that
   startGame: function(rounds) {
     this.round = rounds;
     this.jqGameText("Game is starting!", "");
@@ -398,6 +442,8 @@ var main_game = {
     }
   },
 
+  //Helper function, does multiple stuff when gameState is readyToStartRound
+  //Tries to get the next hinter in the round, if it does, returns false, otherwise everyone has been the hinter in this round and return's true
   startRound: function() {
     this.hinter = this.getHinter();
     if (this.hinter === -1) {
@@ -407,6 +453,8 @@ var main_game = {
       return false;
   },
 
+  //helper function for StartRound, returns -1 if everyone has been the hinter, or the seat number of the next hinter
+  //Only checks seats that are active in the game
   getHinter: function() {
     var temp = this.hinter;
     ++temp;
@@ -418,23 +466,27 @@ var main_game = {
       return -1;
   },
 
+  //If this window is the hinter, this starts the ajax call to theMoviedb to get a random title
   getHintAnswer: function() {
     if (this.windowSeat.number === this.hinter) {
       getMovieDetails(randomDate("1979", "2017"));
     }
   },
 
+  //Called via interval, updates the timer display, and also counts down.
   displayTimerCount: function() {
     this.jqDisplayTimeLeft();
     if (this.timeLeft > 0)
       --(this.timeLeft);
   },
 
+  //Called when the hinter selects a movie as the answer.  Add's the answer to fuzzycompare to make comparing player guesses easy and lenient
   setFuzzyCompare: function() {
     this.fuzzyCompare = FuzzySet();
     this.fuzzyCompare.add(this.answer.toLowerCase());
   },
 
+  //helper function, Displays game status based on if the window is the hinter or not.
   displayGetHint: function() {
     if (this.hinter === this.windowSeat.number) {
       this.jqGameText1("The movie is: " + this.answer);
@@ -447,6 +499,7 @@ var main_game = {
     }
   },
 
+  //
   displayHint: function() {
     if (this.hinter === this.windowSeat.number) {
       //this.jqGameStatus("More Hints === More Correct Answers!", "Please enter in more hints in the chat box, they will be displayed in the Hinter Box for all to see!  <br><br>Remember, you get points too if someone correclty guesses the movie!");
@@ -459,6 +512,7 @@ var main_game = {
     }
   },
 
+  //Display's the masked Answer in the game board, selects a temp host to select a random position in the mask to unveal a letter/number
   maskUnhide: function() {
     this.jqDisplayHiddenAnswer(false);
 
@@ -470,7 +524,8 @@ var main_game = {
     }
   },
 
-  //display up to 75% of the answer
+  //display up to 75% (or percent if set) of the answer over the course of time in seconds.
+  //makes a new interval that calls maskUnhide
   intervalUnhideAnswer: function(time, length, percent = .75) {
     var revealTime = time / (length * percent);
 
@@ -479,12 +534,16 @@ var main_game = {
     }, revealTime * 1000);
   },
 
+  //called when the anwer has been guessed
+  //displays the whole answer, and updates some game status text when the movie has been guessed
   displayHintAnswered: function() {
     this.jqDisplayHiddenAnswer(true);
     this.jqGameText1(this.seats[this.answerer].name + " has answered the hint!");
     this.jqGameText2("The answer was: " + this.answer);
   },
 
+  //called when the answer has been guessed
+  //Gives the hinter and answerer points if the movie was guessed, updates their firebase entries with the points
   calculatePoints: function() {
     if (this.answerer !== 0) {
       if (this.windowSeat.number === this.hinter) {
@@ -498,12 +557,16 @@ var main_game = {
 
   },
 
+  //called when the timer runsout when trying to guess a movie
+  //displays the whole answer, and updates some game status text when the movie has not been guessed
   displayNotAnswered: function() {
     this.jqDisplayHiddenAnswer(true);
     this.jqGameText1("Time over!  No one gets any points!");
     this.jqGameText2("The answer was: " + this.answer);
   },
 
+  //called when the game starts
+  //makes a temp host set all seats .ready to unready in firebase
   setAllSeatsUnReady: function() {
     var tempSeat=this.getTempHost();
     if(this.windowSeat.number===tempSeat.number)
@@ -513,6 +576,7 @@ var main_game = {
       }
   },
 
+  //Unused Function
   setAllSeatsPoints: function() {
     for (var i = 1; i < this.seats.length; ++i) {
       this.seats[i].points = 0;
@@ -520,6 +584,10 @@ var main_game = {
     }
   },
 
+  //called when the window tries to send a message via the chat box.
+  //if the window is in a seat and is not the hinter, chat is sent to the chat box, and if there is a movie to be gussed curretly, the chat box also your submit guess box.
+  //if the window  is the hinter, chat is sent to the hinter chat box
+  //input is sent to firebse("chat")  or firebase("hChat")
   fbSendChatMessage: function(message) {
     if (this.windowSeat.number !== 0) {
       if (this.gameState === gameStates.waitingForHint && this.windowSeat.number === this.hinter)
@@ -537,10 +605,12 @@ var main_game = {
 
   },
 
+  //jquery function, updates timer display
   jqDisplayTimeLeft: function() {
     $("#timer").text(this.timeLeft);
   },
 
+  //jquery function, if reveal is false, display the answer masked by answerMask, else display the full answer
   jqDisplayHiddenAnswer: function(reveal=false) {
     var displayStr = "";
     for (var i = 0; i < this.answer.length; ++i)
@@ -552,10 +622,12 @@ var main_game = {
     $("#movie-to-guess").html(displayStr);
   },
 
+  //jquery funciton, erases the diplayed answer container
   jqHideHiddenAnswer: function() {
     $("#movie-to-guess").html("");
   },
 
+  //jquery function, called when firebase("chat") get's a new child added.  Displays the mesg to the chat box
   jqDisplayChatMessage: function(message) {
     var p = $("<p>");
     p.text(message);
@@ -565,6 +637,7 @@ var main_game = {
     chatBox.scrollTop(chatBox[0].scrollHeight);
   },
 
+  //jquery function, called when firebase("hChat") get's a new child added.  Displays the mesg to the hinter chat box
   jqDisplayHinterChat: function(message) {
     var p = $("<p>");
     p.text(message);
@@ -574,11 +647,14 @@ var main_game = {
     chatBox.scrollTop(chatBox[0].scrollHeight);
   },
 
+  //empties the hinter chat box
   clearHChat: function() {
     $("#hinter-chat").empty();
     this.hChatRef.remove();
   },
 
+  //called when the game is over
+  //displays a modal and updates game status text
   displayGameOver: function() {
     var winStr = this.getWinnerStr();
     this.jqGameStatus(winStr, "Congratulate them! Or not.  Or whatever.  I'm not your mother.");
@@ -586,6 +662,8 @@ var main_game = {
     this.jqGameText2("Ready up to start again!");
   },
 
+  //helper function for displayGameOver
+  //returns a string based on who has the most points at the end of the game.
   getWinnerStr: function() {
     var maxPoints = 0;
     var names = [];
@@ -617,6 +695,7 @@ var main_game = {
   },
 
   //called by themoviedb api .done call
+  //Displays the reroll/set movie modal
   jqReturnAnswer: function(str) {
     var myModal = $("#modalConfirmMovie");
     myModal.find(".modal-movie").text(str);
@@ -624,6 +703,7 @@ var main_game = {
   },
 
   //only the hinter window is going to call this function
+  //Set's the str as the hinter's answer.  also builds the intial answerMask, and updates the wikipedia plot modal text
   setAnswer: function(str) {
     this.answer = str;
     this.posterUrl = movieImg;
@@ -638,6 +718,7 @@ var main_game = {
     this.fbSetState(this.hinter, gameStates.waitingForHint);
   },
 
+  //herlp function, if charCode paramater is an alphanumeric, return true, false otherwise
   charIsNotAlphaNumeric: function(code) {
       if (!(code > 47 && code < 58) && // numeric (0-9)
           !(code > 64 && code < 91) && // upper alpha (A-Z)
@@ -647,6 +728,7 @@ var main_game = {
     return false;
   },
 
+  //jquery funciton, updates the wikipedi plot modal text with the answer's title and plot.
   jqSetMoviePlotModal: function() {
     var myModal = $("#modalMoviePlot");
     myModal.find(".modal-movie").text(movieTitle);
@@ -654,6 +736,8 @@ var main_game = {
   },
 
   //only the hinter is going to call this function
+  //Called when the hinter enters in their first hint to start the timer countdown.
+  //changes state hinter's window then also changes gameState to waitingForAnswer
   setHint: function(str) {
     //console.log("we be getting called");
     this.hint = str;
@@ -661,6 +745,7 @@ var main_game = {
   },
 
   //only the first window to submit the correct answer will call this function
+  //if thi wndow guesses the answer with greater than prob matching, they are the answerer.
   checkAnswer: function(str, prob = .8) {
     var tempFuzzArray = this.fuzzyCompare.get(str.toLowerCase());
     if (tempFuzzArray !== null && tempFuzzArray.length > 0)
@@ -670,6 +755,7 @@ var main_game = {
       }
   },
 
+  //jquery function, changes the gameTest1 text
   jqGameText1: function(str) {
     $("#game-text-1").text(str);
   },
@@ -681,6 +767,8 @@ var main_game = {
     this.jqGameText2(str2);
   },
 
+  //Called when the question is answered or when time runs out
+  //Update's and displays the movie modal with the title and year, and move poster
   jqDisplayAnswer: function(isAnswered) {
     var modal = $("#modalMoviePoster");
     if (isAnswered) {
@@ -696,6 +784,7 @@ var main_game = {
     modal.modal("show");
   },
 
+  //updates and display's the gameStatus modal
   jqGameStatus: function(head, body) {
     var modal = $("#modalGameStatus");
     modal.find(".status-head").html(head);
@@ -703,10 +792,12 @@ var main_game = {
     modal.modal("show");
   },
 
+  //hides all modals that have .modal-hideable as a class
   jqHideAllModals: function() {
     $(".modal-hideable").modal("hide");
   },
   
+  //returns this windows seat nunber.
   windowNum: function() {
     return this.windowSeat.number;
   }
