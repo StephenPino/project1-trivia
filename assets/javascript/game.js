@@ -70,9 +70,10 @@ var main_game = {
 
   fbUpdateSeat: function(num, val) {
     var tempSeat = this.seats[num];
+
     if (tempSeat.joined === true && val.joined === false)
       if (this.gameState !== gameStates.waitingForPlayers)
-        this.playerLeftDuringGame(tempSeat.name);
+        this.playerLeftGame(tempSeat.name);
 
     tempSeat.name = val.name;
     tempSeat.joined = val.joined;
@@ -92,15 +93,15 @@ var main_game = {
       this.fbCancelDisconnect();
   },
 
-  playerLeftDuringGame: function(name) {
+  playerLeftGame: function(name) {
     this.gameStopTimers();
     this.jqHideAllModals();
     this.hinter = 0;
     this.answer = "";
     this.answerer = 0;
-    this.jqGameText1(name + " has left during an active game!");
-    this.jqGameText2("Restarting Game");
-    this.fbSetState(0, gameStates.waitingForPlayers);
+    this.jqGameText1(name + " has left the game!");
+    this.jqGameText2("Waiting for players..");
+    this.jqModalPlayeLeft(name);
   },
 
   getTempHost: function() {
@@ -691,13 +692,17 @@ var main_game = {
   },
 
   jqHideAllModals: function() {
-    $(".modal").modal("hide");
-    $('body').removeClass('modal-open');
-    $('.modal-backdrop').remove();
+    $(".modal-hideable").modal("hide");
   },
   
   windowNum: function() {
     return this.windowSeat.number;
   },
+
+  jqModalPlayeLeft: function(name) {
+    var modal = $("#modalPlayerLeft");
+    modal.find(".modal-name").text(name);
+    modal.modal("show");
+  }
 };
 
