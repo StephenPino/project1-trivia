@@ -94,6 +94,7 @@ var main_game = {
 
   playerLeftDuringGame: function(name) {
     this.gameStopTimers();
+    this.jqHideAllModals();
     this.hinter = 0;
     this.answer = "";
     this.answerer = 0;
