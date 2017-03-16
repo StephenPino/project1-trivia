@@ -117,7 +117,7 @@ p {
 }
 
 #movie-to-blanks-div {
-  min-height: 100px;
+  min-height: 135px;
   width: 90%;
   background-color: white;
   margin: 0 auto;
@@ -129,7 +129,7 @@ p {
 
 #game-status-div {
   width: 90%;
-  min-height: 200px;
+  min-height: 285px;
   background-color: white;
   margin: 0 auto;
   position: relative;
@@ -187,7 +187,7 @@ p {
 
 #hinter-div {
   width: 90%;
-  height: 400px;
+  height: 585px;
   background-color: white;
   margin: 0 auto;
   position: relative;
@@ -246,11 +246,17 @@ p {
 
 .panel-header-ready {
   background-color: #37C740;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+
 }
 
 .panel-header-unready {
   background-color: #C90018;
   color: white;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+
 }
 
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
