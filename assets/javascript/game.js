@@ -374,7 +374,7 @@ var main_game = {
         case gameStates.roundOver:
           //this.displayRoundOver();
           --this.round;
-          this.jqGameStatus("Next Round is starting!", this.round+" round\\s left!");
+          this.jqGameStatus("Next Round is starting!", this.round+" rounds left!");
           this.gameStartTimers(3, 0, gameStates.readyToStartRound);
           break;
         case gameStates.gameOver:
