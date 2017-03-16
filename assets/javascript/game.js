@@ -492,11 +492,12 @@ var main_game = {
   },
 
   setAllSeatsUnReady: function() {
-    buttonReadyState(false);
-    for (var i = 1; i < this.seats.length; ++i) {
-      this.seats[i].ready = false;
-      this.seats[i].fbSetSeat();
-    }
+    var tempSeat=this.getTempHost();
+    if(this.windowSeat.number===tempSeat.number)
+      for (var i = 1; i < this.seats.length; ++i) {
+        this.seats[i].ready = false;
+        this.seats[i].fbSetSeat();
+      }
   },
 
   setAllSeatsPoints: function() {
