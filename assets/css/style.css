@@ -246,11 +246,17 @@ p {
 
 .panel-header-ready {
   background-color: #37C740;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+
 }
 
 .panel-header-unready {
   background-color: #C90018;
   color: white;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+
 }
 
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
