@@ -28,7 +28,6 @@ var main_game = {
   hChatRef: database.ref("q-chat"),
   hChatRefDisc: null,
   gameRef: database.ref("game"),
-  gameRefDisc: null,
   maskRef: database.ref("mask"),
   maskRefDisc: null,
 
@@ -101,7 +100,8 @@ var main_game = {
     this.answerer = 0;
     this.jqGameText1(name + " has left the game!");
     this.jqGameText2("Waiting for players..");
-    this.jqModalPlayeLeft(name);
+    this.fbSendChat(0, name + " has disconnected");
+    this.jqGameStatus("A player has left the game!", "Jeers for "+name+" next time you see them for spoiling the fun!");
   },
 
   getTempHost: function() {
@@ -109,6 +109,7 @@ var main_game = {
       if (this.seats[i].joined)
         return this.seats[i];
     }
+    return -1;
   },
 
   getLastConnected: function() {
@@ -126,8 +127,6 @@ var main_game = {
 
   fbDisconnectAttach: function(num) {
     if (num === this.windowSeat.number) {
-      this.gameRefDisc = this.gameRef.onDisconnect();
-      this.gameRefDisc.set({ gameState: gameStates.waitingForPlayers, hinter: 0, hint: "", answerer: 0, answer: "", poster: "", year: ""});
       this.hChatRefDisc = this.hChatRef.onDisconnect();
       this.hChatRefDisc.remove();
       this.chatRefDisc = this.chatRef.onDisconnect();
@@ -138,10 +137,6 @@ var main_game = {
   },
 
   fbCancelDisconnect: function() {
-    if (this.gameRefDisc !== null) {
-      this.gameRefDisc.cancel();
-      this.gameRefDisc = null;
-    }
     if (this.hChatRefDisc !== null) {
       this.hChatRefDisc.cancel();
       this.hChatRefDisc = null;
@@ -190,6 +185,20 @@ var main_game = {
     }
   },
 
+  fbSendChat: function(num, string) {
+    //console.log("fb Send Chat "+num);
+    var tempSeat = null;
+    if (num === 0)
+      tempSeat = this.getTempHost();
+    else
+      tempSeat = this.seats[num];
+
+    if (this.windowSeat.number === tempSeat.number) {
+      console.log("This Window is setting chat");
+      this.chatRef.push({ msg: string });
+    }
+  },
+
   joinGame: function(num, name) {
     if (this.seats[num].joined) {
       this.jqGameStatus("Pick an empty seat!", "This Seat is taken! No sitting in other people's laps.");
@@ -216,7 +225,8 @@ var main_game = {
           this.windowSeat.ready = false;
           this.windowSeat.fbSetSeat();
           this.jqGameText2("You are not ready.");
-
+          var tempMsg = this.windowSeat.name + " is unready";
+          this.chatRef.push({ msg: tempMsg });
           //you set unready when timer is going, need to stop it if the timer 
           //This will happen for the first person to click unready after all players have cliked ready.
           if (this.gameState === gameStates.readyToStartGame) {
@@ -227,6 +237,8 @@ var main_game = {
           this.windowSeat.ready = true;
           this.windowSeat.fbSetSeat();
           this.jqGameText2("You are Ready!");
+          var tempMsg = this.windowSeat.name + " is ready";
+          this.chatRef.push({ msg: tempMsg });
           //the Last person to be able to be ready clicks ready
           if (this.allSeatsJoinedReady()) {
             this.fbSetState(this.windowSeat.number, gameStates.readyToStartGame);
@@ -697,12 +709,6 @@ var main_game = {
   
   windowNum: function() {
     return this.windowSeat.number;
-  },
-
-  jqModalPlayeLeft: function(name) {
-    var modal = $("#modalPlayerLeft");
-    modal.find(".modal-name").text(name);
-    modal.modal("show");
   }
 };
 
