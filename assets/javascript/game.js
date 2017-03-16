@@ -730,9 +730,41 @@ var main_game = {
 
   //jquery funciton, updates the wikipedi plot modal text with the answer's title and plot.
   jqSetMoviePlotModal: function() {
-    var myModal = $("#modalMoviePlot");
-    myModal.find(".modal-movie").text(movieTitle);
-    myModal.find(".modal-plot").html(moviePlot);
+    var object = wtf_wiki_object;
+    //console.log("Wikitext Parse object");
+    //console.log(object);
+    var keysIter = object.text.keys();
+    //console.log(keysIter);
+    //console.log("Plot entry in wikiText parse");
+    //console.log(plotObject);
+    if(object.text.size===0){
+      moviePlot = "No Wikipedia Entry";
+    }
+    else {
+      var myModal = $("#modalMoviePlot");
+      var title = myModal.find(".modal-movie");
+      var body = myModal.find(".modal-body");
+
+      title.text(movieTitle);
+
+      for(var k=0; k<object.text.size; ++k) {
+        var entry = keysIter.next().value;
+        //console.log(entry);
+        var tempArray = object.text.get(entry);
+
+        body.append($("<h3>").text(entry));
+        body.append($("<hr>"));
+
+        var tempP = $("<p>");
+        for (var i = 0; i < tempArray.length; i++) {
+          tempP.append(tempArray[i].text+"&nbsp;&nbsp;");
+          if(i%3===0) 
+            tempP.append("<br/><br/>");
+        }
+        body.append(tempP);
+        body.append("<br/><br/>");
+      }
+    }
   },
 
   //only the hinter is going to call this function

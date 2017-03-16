@@ -43,3 +43,4 @@ var movieTitle = "";
 var movieImg = "";
 var movieYear = "";
 var movieSummary = "";
+var wtf_wiki_object=null;
