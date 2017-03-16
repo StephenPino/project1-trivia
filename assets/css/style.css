@@ -117,7 +117,7 @@ p {
 }
 
 #movie-to-blanks-div {
-  min-height: 100px;
+  min-height: 135px;
   width: 90%;
   background-color: white;
   margin: 0 auto;
@@ -129,7 +129,7 @@ p {
 
 #game-status-div {
   width: 90%;
-  min-height: 200px;
+  min-height: 285px;
   background-color: white;
   margin: 0 auto;
   position: relative;
@@ -187,7 +187,7 @@ p {
 
 #hinter-div {
   width: 90%;
-  height: 505px;
+  height: 585px;
   background-color: white;
   margin: 0 auto;
   position: relative;
