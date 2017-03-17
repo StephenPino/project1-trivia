@@ -58,6 +58,7 @@
 				<h3 id="game-text-2"></h3>
 				<button id="player-ready" class="btn btn-default center-block" data-state="unready">Ready?</button>
         <button id="show-plot" class="btn btn-default center-block">Show Plot</button>
+        <button id="how-to-play" type="button" class="btn btn-default center-block">How To Play</button>
 				
 			</div>
 
@@ -291,6 +292,85 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<!-- How to play modal -->
+<div class="modal fade" id="modalHowToPlay" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h2 class="modal-title text-center">How To Play... Part I: Overview</h2>
+      </div>
+      <div class="modal-body">
+      	<h4 class="text-center">Movie Madness is a multiplayer game that can be played with 2-5 players. The game is split into 2 rounds in which players take turns as the hinter.  The hinter will recieve a random movie and must give hints about the movie for the other players to guess. Points are awarded to both the hinter and the player who guesses the movie correctly. The player(s) with the most points at the end of the game will be declared the winner.</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="next1" data-dismiss="modal">Next</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- How to play modal2 -->
+<div class="modal fade" id="modalHowToPlay2" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h2 class="modal-title text-center">How To Play... Part II: Joining the Game</h2>
+      </div>
+      <div class="modal-body">
+        <h4 class="text-center">Players must first input thier name into an empty seat and press the "enter" button.  Once a player has taken a seat, they will be able to input messages into the chatbox in the center of the screen.  Press the ready button when you are ready to play.  When all available players have hit the ready button, the game will start.</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="previous2" data-dismiss="modal">Previous</button>
+        <button type="button" class="btn btn-default" id="next2" data-dismiss="modal">Next</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- How to play modal3 -->
+<div class="modal fade" id="modalHowToPlay3" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h2 class="modal-title text-center"><span class="how-to-play">How To Play... Part III: Hinter</span></h2>
+      </div>
+      <div class="modal-body">
+        <h4 class="text-center">At the start of each round, one player will be selected to be the hinter and will be assigned a random movie. The hinter may choose to lock in the movie or pass the movie to recieve another. There is no limit to the number of passes you can make. Once the movie has been locked in, the hinter will be prompted to type his first hint.  Once the first hint is locked in, you have 60 seconds to give as many hints about the movie as you can so the other players can guess it.  You may NOT include the title of the movie in your hints. If a player guesses the movie correctly, you will recieve 2 points.</h4>
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-default" id="previous3" data-dismiss="modal">Previous</button>
+      	<button type="button" class="btn btn-default" id="next3" data-dismiss="modal">Next</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- How to play modal3 -->
+<div class="modal fade" id="modalHowToPlay4" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h2 class="modal-title text-center"><span class="how-to-play">How To Play... Part IV: Guesser</span></h2>
+      </div>
+      <div class="modal-body">
+        <h4 class="text-center">If you are not designated as the hinter, your role is a guesser. As a guesser, it is your job to try and guess the movie the hinter is describing. Submit your guesses into the chat box into the center and it will automatically detect if you gave guessed the correct answer. You have an unlimited number of guesses, so guess away! If a player guesses the movie within 60 seconds, they will be awarded 1 point. If no one guesses the correct answer, no points will be awarded.</h4>
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-default" id="previous4" data-dismiss="modal">Previous</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Ready to Play!</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 
 </body>
 
