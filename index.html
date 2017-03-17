@@ -66,7 +66,8 @@
 				<h3 id="game-text-1"></h3>
 				<h3 id="game-text-2"></h3>
 				<button id="player-ready" class="btn btn-default center-block">Ready</button>
-        <button id="show-plot" class="btn btn-default center-block">Show Plot</button>
+        <button id="show-movie" class="btn btn-default center-block" data-toggle="modal" data-target="#modalMovieDetails">Show Movie</button>
+        <button id="show-plot" class="btn btn-default center-block">Show Wiki</button>
         <button id="how-to-play" type="button" class="btn btn-default center-block">How To Play</button>
 				
 			</div>
@@ -276,7 +277,7 @@
       </div>
       <div class="modal-body">
       <h2 class="text-center"><span class="movie-title">Movie Title</span> - <span class="movie-date">1999</span></h2>
-        <img class="center-block movie-poster" src="assets/images/placeholder.jpg">
+        <img class="center-block movie-poster" src="">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -393,6 +394,40 @@
       <div class="modal-footer">
       	<button type="button" class="btn btn-default" id="previous4" data-dismiss="modal">Previous</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Ready to Play!</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- TheMovieDB Details-->
+<div class="modal fade modal-hideable" id="modalMovieDetails" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h2 class="modal-title text-center"><span class="how-to-play">Movie Details</span></h2>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-4">
+              <img class="img-responsive" alt="Responsive image" src=""/>
+            </div>
+            <div class="col-md-8">
+              <h3>Movie Title: </h3>
+              <p class="movie-title text-center">Title</p>
+              <hr>
+              <h3>Release Year: </h3>
+              <p class="movie-year text-center">Year</p>
+              <hr>
+              <h3>Summary: </h3>
+              <p class="movie-summary">There be words here</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="previous4" data-dismiss="modal">Previous</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Dismiss</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

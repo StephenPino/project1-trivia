@@ -608,17 +608,17 @@ var main_game = {
   //input is sent to firebse("chat")  or firebase("hChat")
   fbSendChatMessage: function(message) {
     if (this.windowSeat.number !== 0) {
-      if (this.gameState === gameStates.waitingForHint && this.windowSeat.number === this.hinter)
-        this.setHint(message);
-      else if (this.gameState === gameStates.waitingForAnswer && this.windowSeat.number !== this.hinter)
-        this.checkAnswer(message);
-
-      if (this.gameState === gameStates.waitingForAnswer && this.windowSeat.number === this.hinter) {
+      if ((this.gameState === gameStates.waitingForAnswer || this.gameState === gameStates.waitingForHint ) && this.windowSeat.number === this.hinter) {
         this.hChatRef.push({ msg: message });
       } else {
         var tempMsg = this.windowSeat.name + ": " + message;
         this.chatRef.push({ msg: tempMsg });
       }
+
+      if (this.gameState === gameStates.waitingForHint && this.windowSeat.number === this.hinter)
+        this.setHint(message);
+      else if (this.gameState === gameStates.waitingForAnswer && this.windowSeat.number !== this.hinter)
+        this.checkAnswer(message);
     }
 
   },
@@ -735,6 +735,7 @@ var main_game = {
 
       //console.log(this.mask);
     this.jqSetMoviePlotModal();
+    this.jqSetMovieDetailsModal();
     this.fbSetMask(this.hinter, JSON.stringify(this.mask));
     this.fbSetState(this.hinter, gameStates.waitingForHint);
   },
@@ -787,6 +788,15 @@ var main_game = {
         body.append("<br/><br/>");
       }
     }
+  },
+
+  //Set's the movie Details Modal
+  jqSetMovieDetailsModal: function() {
+    var myModal = $("#modalMovieDetails");
+    myModal.find(".movie-title").text(movieTitle);
+    myModal.find(".movie-year").text(movieYear);
+    myModal.find(".movie-summary").text(movieSummary);
+    myModal.find("img").attr("src", movieImg);
   },
 
   //only the hinter is going to call this function

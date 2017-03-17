@@ -76,10 +76,10 @@ function getMoviePlot(movieTitle, year, useFilm, useYear) {
       }
       else if(pages[keys[0]].revisions[0]['*'][0]==='#') {
         var redirect = pages[keys[0]].revisions[0]['*'];
-        //console.log("Redirection entry in wiki response");
-        //console.log(redirect);
-        //console.log(redirect.substring(12,redirect.length-2));
-        getMoviePlot(redirect.substring(12,redirect.indexOf(']')), false, false);
+        console.log("Redirection entry in wiki response");
+        console.log(redirect);
+        console.log(redirect.substring(redirect.indexOf('[')+2,redirect.indexOf(']')));
+        getMoviePlot(redirect.substring(redirect.indexOf('[')+2,redirect.indexOf(']')), false, false);
       }
       else {
         wtf_wiki_object = wtf_wikipedia.parse(pages[keys[0]].revisions[0]['*']);
