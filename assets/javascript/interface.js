@@ -25,3 +25,30 @@ function buttonReadyState(ready, num){
   }
 }
 
+$("#how-to-play").on("click", function() {
+	$("#modalHowToPlay").modal("show");
+});
+
+$("#next1").on("click", function() {
+	$("#modalHowToPlay2").modal("show");
+});
+
+$("#previous2").on("click", function() {
+	$("#modalHowToPlay").modal("show");
+});
+
+$("#next2").on("click", function() {
+	$("#modalHowToPlay3").modal("show");
+});
+
+$("#previous3").on("click", function() {
+	$("#modalHowToPlay2").modal("show");
+});
+
+$("#next3").on("click", function() {
+	$("#modalHowToPlay4").modal("show");
+});
+
+$("#previous4").on("click", function() {
+	$("#modalHowToPlay3").modal("show");
+});
