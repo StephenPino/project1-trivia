@@ -14,12 +14,12 @@ function showNameDisplay(num){
 
 function buttonReadyState(ready, num){
   if(!ready) {
-    $("#player-ready").html("Ready?");
+    //$("#player-ready").html("Ready?");
     $("#seat" + num).find(".panel-header").addClass("panel-header-unready");
     $("#seat" + num).find(".panel-header").removeClass("panel-header-ready");
   }
   else {
-    $("#player-ready").html("Unready?");
+    //$("#player-ready").html("Unready?");
     $("#seat" + num).find(".panel-header").addClass("panel-header-ready");
     $("#seat" + num).find(".panel-header").removeClass("panel-header-unready");
   }

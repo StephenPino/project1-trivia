@@ -6,6 +6,7 @@ function Seat(num=0, name="Empty", joined=false, points=0, ready=false){
   this.ready=ready;
   this.state=seatStates.waitingForPlayer;
   this.ref=database.ref("player/"+num);
+  this.gameRef=database.ref("game");
 
   this.updateValues = function(snapshot){
     var val=snapshot.val();
@@ -24,6 +25,7 @@ function Seat(num=0, name="Empty", joined=false, points=0, ready=false){
   };
   this.fbDisconnectAttach = function(){
     this.ref.onDisconnect().set({name: "Empty", joined: false, ready: false, points: 0});
+    this.gameRef.onDisconnect().set({ gameState: gameStates.waitingForPlayers, hinter: 0, hint: "", answerer: 0, answer: "", poster: "", year: "" });
   };
   //this method will call the ajax to get the random movie, and some logic if they want to skip the movie.
   this.getAnswer = function() {

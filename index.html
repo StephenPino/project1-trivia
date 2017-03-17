@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Movie Trivia Game</title>
+    <title>Movie Trivia Game</title>
+
 
   <!-- JQuery -->
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
@@ -17,28 +18,36 @@
   <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'
 
+
   <!-- style.css -->
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+  <link rel="stylesheet" type="text/css" href="assets/css/animate.css">
 
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
 
+<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
 </head>
 
 <body>
+	<div class="curtaindiv curtainLeft"><img class="curtainimage" src="assets/images/movcurtainsleft.jpg"></div>
+
+	<div class="curtaindiv curtainRight"><img class="curtainimage" src="assets/images/movcurtainsright.jpg"></div>
 
 <div class="container-fluid">
-
+			
 	<div class="row">
-
+			
 		<!-- Left Section -->
 		<div class="col-md-3">
-		
+				
 			<div id="time-remaining-div">
 				<div id="time-remaining-holder">
 					<h1 id="time-remaining-header">Time Remaining</h1>
 				</div>
-					<h3><span id="timer"></span> seconds</h3>
+					<h3><span id="timer">0</span> seconds</h3>
 				
 			</div>
 
@@ -56,7 +65,7 @@
 				</div>
 				<h3 id="game-text-1"></h3>
 				<h3 id="game-text-2"></h3>
-				<button id="player-ready" class="btn btn-default center-block" data-state="unready">Ready?</button>
+				<button id="player-ready" class="btn btn-default center-block">Ready</button>
         <button id="show-plot" class="btn btn-default center-block">Show Plot</button>
         <button id="how-to-play" type="button" class="btn btn-default center-block">How To Play</button>
 				
@@ -220,7 +229,7 @@
 </div>
 
 <!--  -->
-<div class="modal fade" id="modalConfirmMovie" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static" data-keyboard="false">
+<div class="modal fade modal-hideable" id="modalConfirmMovie" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -241,14 +250,14 @@
   </div>
 </div>
 
-<div class="modal fade" id="modalMoviePlot" tabindex="-1" role="dialog" aria-labelledby="moviesPlot">
+<div class="modal fade modal-hideable" id="modalMoviePlot" tabindex="-1" role="dialog" aria-labelledby="moviesPlot">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="moviesPlot"><span class="modal-movie"></span>'s Plot</h4>
+        <h4 class="modal-title text-center" id="moviesPlot"><span class="modal-movie"></span> Wikipedia Entry</h4>
       </div>
       <div class="modal-body">
-          <p class="modal-plot"></p>
+    
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default modal-button" data-dismiss="modal">Dismiss</button>
@@ -257,7 +266,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="modalMoviePoster" tabindex="-1" role="dialog">
+<div class="modal fade modal-hideable" id="modalMoviePoster" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -285,6 +294,24 @@
       </div>
       <div class="modal-body">
         <h2 class="text-center"><span class="status-body">More stuff</span></h2>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Page Load modal -->
+<div class="modal fade modal-hideable" id="modalGameLoad" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h2 class="modal-title text-center">Welcome to Movie Madness</h2>
+      </div>
+      <div class="modal-body">
+        <h3 class="text-center">I hope you know your movies!</h3>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -370,7 +397,6 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 
 </body>
 

@@ -136,5 +136,14 @@ $(document).ready(function() {
 
   //main_game.fbPlayerInit();
   main_game.reset();
+  $("#modalGameLoad").modal("show");
+
+  
+  $("#modalGameLoad").on("hide.bs.modal", function (event){
+    $(".curtainLeft").addClass("animated slideOutLeft");
+    $(".curtainRight").addClass("animated slideOutRight");
+
+  });
 
 });
+

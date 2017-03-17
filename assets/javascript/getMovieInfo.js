@@ -82,28 +82,7 @@ function getMoviePlot(movieTitle, year, useFilm, useYear) {
         getMoviePlot(redirect.substring(12,redirect.indexOf(']')), false, false);
       }
       else {
-        var wikiText= pages[keys[0]].revisions[0]['*'];
-        var object = wtf_wikipedia.parse(wikiText);
-        //console.log("Wikitext Parse object");
-        //console.log(object);
-        var plotObject = object.text.get("Plot");
-        //console.log("Plot entry in wikiText parse");
-        //console.log(plotObject);
-        if(plotObject===undefined){
-          plotObject = object.text.get("Plot summary");
-          //console.log("Plot Summary entry in wikiText parse");
-          //console.log(plotObject);
-          if(plotObject===undefined)
-            moviePlot = "No Wikipedia Plot Entry";   
-        }
-        else {
-          for (var i = 0; i < plotObject.length; i++) {
-            moviePlot = moviePlot + "  " + plotObject[i].text;
-            if(i%4===0)
-              moviePlot+="<br/><br/>";
-          }
-        }
-
+        wtf_wiki_object = wtf_wikipedia.parse(pages[keys[0]].revisions[0]['*']);
       }
     }
   });

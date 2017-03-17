@@ -22,7 +22,8 @@ p {
 }
 
 ::-webkit-scrollbar { 
-    display: none; 
+    
+    /*display: none; */
 }
 
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
@@ -63,7 +64,7 @@ p {
   width: 100%;
   height: 250px;
   overflow: auto;
-  border-radius: 20px
+  border-radius: 20px;
 
 }
 
@@ -262,4 +263,37 @@ p {
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
 
  /* mdodals*/
+.curtaindiv{position: fixed;
+  z-index: 10;
+}
+.curtainimage{height: 100vh;
+  width:100vw;
 
+}
+
+.curtainLeft{
+  transform: translate3d(-50%, 0, 0);
+}
+
+.curtainRight{
+    transform: translate3d(50%, 0, 0);
+}
+
+#modalMoviePlot .modal-dialog {
+  width: 80vw;
+  height: 90vh;
+  overflow: auto;
+}
+
+#modalMoviePlot .modal-content {
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+}
+
+#modalMoviePlot .modal-body {
+  overflow: auto;
+  width: 100%;
+  height: 80%;
+}
