@@ -719,7 +719,10 @@ var main_game = {
   //Displays the reroll/set movie modal
   jqReturnAnswer: function(str) {
     var myModal = $("#modalConfirmMovie");
-    myModal.find(".modal-movie").text(str);
+    myModal.find(".movie-title").text(movieTitle);
+    myModal.find(".movie-year").text(movieYear);
+    myModal.find(".movie-summary").text(movieSummary);
+    myModal.find("img").attr("src", movieImg);
     myModal.modal("show");
   },
 
