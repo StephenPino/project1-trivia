@@ -37,7 +37,7 @@ $(document).ready(function() {
   });
 
   $("#chat-submit").on("click", function(event) {
-    console.log();
+    //console.log();
     event.preventDefault();
     var msg=$("#chat-input").val().trim();
     if(msg!=="")

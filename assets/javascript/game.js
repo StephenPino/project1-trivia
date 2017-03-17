@@ -187,7 +187,7 @@ var main_game = {
       tempSeat = this.seats[num];
 
     if (this.windowSeat.number === tempSeat.number) {
-      console.log("This Window is changing state to: " + state);
+      //console.log("This Window is changing state to: " + state);
       this.gameRef.set({ gameState: state, hint: this.hint, hinter: this.hinter, answer: this.answer, answerer: this.answerer, poster: this.posterUrl, year: this.movieYear});
     }
   },
@@ -204,7 +204,7 @@ var main_game = {
       tempSeat = this.seats[num];
 
     if (this.windowSeat.number === tempSeat.number) {
-      console.log("This Window is setting mask");
+      //console.log("This Window is setting mask");
       database.ref("mask").set({ str: string });
     }
   },
@@ -220,7 +220,7 @@ var main_game = {
       tempSeat = this.seats[num];
 
     if (this.windowSeat.number === tempSeat.number) {
-      console.log("This Window is setting chat");
+      //console.log("This Window is setting chat");
       this.chatRef.push({ msg: string });
     }
   },
@@ -319,16 +319,16 @@ var main_game = {
         case gameStates.readyToStartRound:
           this.setAllSeatsUnReady();
           if (this.isGameOver()) {
-            console.log("Game Over!");
+            //console.log("Game Over!");
             this.gameStartTimers(3, 0, gameStates.gameOver);
           } else {
             var roundOver = this.startRound();
             if (roundOver) {
-              console.log("Round Over");
+              //console.log("Round Over");
               //this.jqGameStatus(this.seats[this.hinter].name+" is the next Hinter!", "Get ready!");
               this.gameStartTimers(3, 0, gameStates.roundOver);
             } else {
-              console.log("Turn Starting!");
+              //console.log("Turn Starting!");
               this.jqGameStatus(this.seats[this.hinter].name+" is the next Hinter!", "Get ready!");
               this.fbSendChat(this.hinter, this.seats[this.hinter].name+" is the next Hinter!");
               //console.log(this.hinter);
@@ -414,7 +414,7 @@ var main_game = {
   //Set's an interval per second that countsdown, and a timeout to runs when time ends to change the gameState
   gameStartTimers: function(time, seat = 0, state = gameStates.waitingForPlayers) {
     //just as a precaution;
-    console.log("Timer for: "+state);
+    //console.log("Timer for: "+state);
     clearInterval(this.intervalId);
     clearTimeout(this.timeoutId);
 

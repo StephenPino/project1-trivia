@@ -42,7 +42,7 @@ function getMoviePlot(movieTitle, year, useFilm, useYear) {
     queryTitle += " (" + year + " film)";
   else if (useFilm)
     queryTitle += " (film)";
-  console.log(queryTitle);
+  //console.log(queryTitle);
 
   var config = {
     action: "query",
@@ -76,9 +76,9 @@ function getMoviePlot(movieTitle, year, useFilm, useYear) {
       }
       else if(pages[keys[0]].revisions[0]['*'][0]==='#') {
         var redirect = pages[keys[0]].revisions[0]['*'];
-        console.log("Redirection entry in wiki response");
-        console.log(redirect);
-        console.log(redirect.substring(redirect.indexOf('[')+2,redirect.indexOf(']')));
+        //console.log("Redirection entry in wiki response");
+        //console.log(redirect);
+        //console.log(redirect.substring(redirect.indexOf('[')+2,redirect.indexOf(']')));
         getMoviePlot(redirect.substring(redirect.indexOf('[')+2,redirect.indexOf(']')), false, false);
       }
       else {
