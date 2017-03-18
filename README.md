@@ -1,6 +1,5 @@
-# project1-my-work
-
 # Class: UT0109FSF UT Coding Bootcamp
+# Project 1
 
 # Project Name: 
 ## Movie Madness (The Internet Movie Guessing Game)
