@@ -29,7 +29,7 @@ Here on github pages <https://smp2543.github.io/project1-trivia/> and <https://u
 * Bug Testing
 * Game/Feature/Design Ideas and Suggestions
 ### Grant Daniels
-* Back-end Design (main game code, spaghetti code of a distrubuted game engine)
+* Back-end Design (main game code, spaghetti code of a distributed game engine)
 * Bug Testing
 * Game/Feature/Design Ideas and Suggestions
 
