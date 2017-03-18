@@ -2,9 +2,10 @@
 
 # Class: UT0109FSF UT Coding Bootcamp
 
-# Project Name: Movie Madness (The Internet Movie Guessing Game)
+# Project Name: 
+## Movie Madness (The Internet Movie Guessing Game)
 
-##Hosted: 
+## Hosted: 
 Here on github pages <https://smp2543.github.io/project1-trivia/> and <https://ut-bootcamp-project1.firebaseapp.com/>
 
 ## Project Members: 
