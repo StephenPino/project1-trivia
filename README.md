@@ -20,7 +20,7 @@ Here on github pages <https://smp2543.github.io/project1-trivia/> and <https://u
 * Bug Testing
 * Game/Feature/Design Ideas and Suggestions
 ### Toby Boyd
-* Front-end Design (html, css, animations)
+* Front-end Design (html, css, animations, images)
 * Mobile Design (sadly scrapped due to time)
 * Bug Testing
 * Game/Feature/Design Ideas and Suggestions
@@ -29,7 +29,7 @@ Here on github pages <https://smp2543.github.io/project1-trivia/> and <https://u
 * Bug Testing
 * Game/Feature/Design Ideas and Suggestions
 ### Grant Daniels
-* Back-end Design (main game code, spaghetti code of a distributed game engine)
+* Back-end Design (main game code)
 * Bug Testing
 * Game/Feature/Design Ideas and Suggestions
 
