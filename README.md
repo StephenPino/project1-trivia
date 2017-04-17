@@ -5,7 +5,7 @@
 ## Movie Madness (The Internet Movie Guessing Game)
 
 ## Hosted: 
-Here on github pages <https://smp2543.github.io/project1-trivia/> and <https://ut-bootcamp-project1.firebaseapp.com/>
+Here on github pages <https://stephenpino.github.io/project1-trivia/> and <https://ut-bootcamp-project1.firebaseapp.com/>
 
 ## Project Members: 
 ### Stephen Pino
